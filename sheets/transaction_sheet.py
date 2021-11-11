@@ -9,12 +9,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from dotenv import load_dotenv
-
 load_dotenv()
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-# The ID and range of a sample spreadsheet.
-
 TRANSACTIONS_SPREADSHEET_ID = os.getenv('TRANSACTIONS_SPREADSHEET_ID')
 TRANSACTION_SHEET_RANGE = 'Transactions!A2:H'
 VIEW_SHEET_RANGE = 'Monthly View Helper!A2:H'
@@ -72,16 +69,18 @@ class TransactionSheet():
                 print(
                     f"({row[0]}, {row[1]}, {row[2]}, {row[3]}, {row[4]}, {row[5]}, {row[6]}, {row[7]})")
 
-    def add_transaction(self, values: list) -> None:
+    def add_transaction(self, values: list, range_: str = TRANSACTION_SHEET_RANGE) -> None:
+        self.add_transactions([values], range_)
+
+    def add_transactions(self, values: list, range_: str = TRANSACTION_SHEET_RANGE) -> None:
         """ Given a transaction add it to our sheet """
-        range_ = TRANSACTION_SHEET_RANGE
         # RAW, USER_ENTERED, INPUT_VALUE_OPTION_UNSPECIFIED
-        value_input_option = 'RAW'
+        value_input_option = 'USER_ENTERED'
         # OVERWRITE, INSERT_ROWS
         insert_data_option = 'OVERWRITE'
 
         value_range_body = {
-            "values": [values]
+            "values": values
         }
         request = self.service.spreadsheets().values().append(
             spreadsheetId=TRANSACTIONS_SPREADSHEET_ID, range=range_,
@@ -89,7 +88,16 @@ class TransactionSheet():
             insertDataOption=insert_data_option, body=value_range_body)
         request.execute()
 
-    def add_transactions(self, values: list) -> None:
-        """ Given a list of transactions add it to our sheet """
-        for transaction in values:
-            self.add_transaction(transaction)
+    def populate_monthly_view_helper(self, year: int, month: int) -> bool:
+        """ Clear the helper sheet and add new filtered data """
+        try:
+            request = self.service.spreadsheets().values().clear(
+                spreadsheetId=TRANSACTIONS_SPREADSHEET_ID, range=VIEW_SHEET_RANGE)
+            res = request.execute()
+            if not res.get('clearedRange'):
+                return False
+            values = self.get_transactions(year, month)
+            self.add_transactions(values, VIEW_SHEET_RANGE)
+            return True
+        except Exception:
+            return False

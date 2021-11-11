@@ -1,6 +1,6 @@
 """ Main code entry point """
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from models.transaction import Transaction
 from sheets.transaction_sheet import TransactionSheet
 
@@ -42,6 +42,19 @@ def get_values():
         return 'Input syntax error', 400
     values = transaction_sheet.get_transactions(year, month, day)
     return str(values)
+
+
+@app.route('/load-view', methods=['GET'])
+def load_view():
+    args = request.args
+    try:
+        year = int(args.get('year', 0))
+        month = int(args.get('month', 0))
+    except Exception:
+        print('Improper input values')
+        return 'Input syntax error', 400
+    success = transaction_sheet.populate_monthly_view_helper(year, month)
+    return ('Success', 200) if success else ('Failed', 500)
 
 
 def main():
