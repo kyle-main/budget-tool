@@ -1,12 +1,15 @@
 """ Main code entry point """
 import json
+from rich import print as pprint
 from flask import Flask, request, jsonify
 from models.transaction import Transaction
 from sheets.transaction_sheet import TransactionSheet
+from sheets.networth_sheet import NetworthSheet
 
 app = Flask(__name__)
 
 transaction_sheet = TransactionSheet()
+networth_sheet = NetworthSheet()
 
 
 @app.route('/')
@@ -14,7 +17,7 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route('/add-transaction', methods=['GET'])
+@app.route('/transactions/add', methods=['GET'])
 def add_transaction():
     data = json.loads(request.data)['transaction']
     name = data['name']
@@ -30,8 +33,8 @@ def add_transaction():
     return str(transaction.to_list())
 
 
-@app.route('/get-values', methods=['GET'])
-def get_values():
+@app.route('/transactions/get', methods=['GET'])
+def get_transactions():
     args = request.args
     try:
         year = int(args.get('year', 0))
@@ -44,8 +47,8 @@ def get_values():
     return str(values)
 
 
-@app.route('/load-view', methods=['GET'])
-def load_view():
+@app.route('/transactions/load-view', methods=['GET'])
+def transactions_load_view():
     args = request.args
     try:
         year = int(args.get('year', 0))
@@ -57,14 +60,23 @@ def load_view():
     return ('Success', 200) if success else ('Failed', 500)
 
 
+@app.route('/networth/get', methods=['GET'])
+def get_networth():
+    args = request.args
+    try:
+        year = int(args.get('year', 0))
+        month = int(args.get('month', 0))
+    except Exception:
+        print('Improper input values')
+        return 'Input syntax error', 400
+    values = networth_sheet.get_data()
+    return str(values)
+
+
 def main():
     """ main function """
-    print("""
-        This is a Flask application.
-        Please run 
-            export FLASK_APP=main_flask && flask run
-        to start the development server.
-    """)
+    pprint(
+        f"\n\tThis is a [link=https://flask.palletsprojects.com/en/2.0.x/quickstart/]Flask[/link] application.\n\tPlease run:\n\t\t[{'blue'}]export FLASK_APP=main_flask && flask run[/{'blue'}]\n\tto start the development server.\n")
 
 
 if __name__ == "__main__":
