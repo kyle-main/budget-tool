@@ -1,7 +1,7 @@
 """ Main code entry point """
 import json
 from rich import print as pprint
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from models.transaction import Transaction
 from sheets.transaction_sheet import TransactionSheet
 from sheets.networth_sheet import NetworthSheet
