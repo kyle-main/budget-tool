@@ -1,6 +1,7 @@
 {
   "name": "budget-tool",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^9.1.13",
+    "@angular/animations": "~9.1.0",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.1.0",
     "@angular/compiler": "~9.1.0",
@@ -46,5 +47,7 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
-  }
+  },
+  "author": "",
+  "license": "ISC"
 }

@@ -3,11 +3,19 @@
 }
 
 .form-container {
-  width: 400 px;
-  margin: 0 px auto;
-  margin-top: 200 px;
+  width: 400px;
+  margin: 1px auto;
+  margin-top: 20px;
 }
 
 .form-field {
   display: block;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.submit-button {
+  float: right;
 }
