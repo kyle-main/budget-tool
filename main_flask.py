@@ -12,7 +12,16 @@ transaction_sheet = TransactionSheet()
 networth_sheet = NetworthSheet()
 
 
-@app.route('/')
+@app.after_request
+def enable_cors(response):
+    origin = request.headers.get('Origin')
+    white_list = ['http://localhost:4200']
+    if any([substr in origin for substr in white_list]):
+        response.headers.add('Access-Control-Allow-Origin', origin)
+        return response
+
+
+@app.route('/', methods=['GET'])
 def hello_world():
     return "<p>Hello, World!</p>"
 

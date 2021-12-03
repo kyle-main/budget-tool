@@ -47,16 +47,25 @@ export class HomeComponent implements OnInit {
   }
 
   saveTransactions(): void {
-    this.transactionService.saveTransactions(this.transactionList);
+    this.transactionService
+      .saveTransactions(this.transactionList)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
   setRecurring(recurring: boolean): void {
     this.recurring = recurring;
   }
 
+  save() {
+    this.saveTransactions();
+  }
+
   submit() {
     if (!this.form.valid) {
       // TODO: Add toast to say form invalid
+      console.error('Form invalid!');
       return;
     }
     this.addTransaction();
