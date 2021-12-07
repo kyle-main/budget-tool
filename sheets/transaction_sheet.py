@@ -1,6 +1,7 @@
 import os
 from .sheet import Sheet
 from dotenv import load_dotenv
+from models.transaction import Transaction
 load_dotenv()
 
 TRANSACTIONS_SPREADSHEET_ID = os.getenv('TRANSACTIONS_SPREADSHEET_ID')
@@ -18,7 +19,7 @@ class TransactionSheet(Sheet):
         self.add_transactions([values], range_)
 
     def add_transactions(self, values: list, range_: str = TRANSACTION_SHEET_RANGE) -> None:
-        """ Given a transaction add it to our sheet """
+        """ Given a list of transactions (list) to our sheet """
         # RAW, USER_ENTERED, INPUT_VALUE_OPTION_UNSPECIFIED
         value_input_option = 'USER_ENTERED'
         # OVERWRITE, INSERT_ROWS
@@ -59,3 +60,22 @@ class TransactionSheet(Sheet):
             return True
         except Exception:
             return False
+
+    def clean_transactions(self, l: list) -> list:
+        """ Given a list of transactions, 
+            instanciate them and convert back to list for uniformity """
+        clean_list = []
+        for t in l:
+            name = t['name']
+            amount = t['amount']
+            category = t['category']
+            month = t['month']
+            year = t['year']
+            day = t['day']
+            recurring = t['recurring']
+            transaction = Transaction(name, amount, category,
+                                      month, year, day, recurring)
+            clean_list.append(transaction.to_list())
+
+        print(clean_list)
+        return clean_list

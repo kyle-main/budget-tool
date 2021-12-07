@@ -1,7 +1,7 @@
 """ Main code entry point """
 import json
 from rich import print as pprint
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from models.transaction import Transaction
 from sheets.transaction_sheet import TransactionSheet
 from sheets.networth_sheet import NetworthSheet
@@ -14,11 +14,12 @@ networth_sheet = NetworthSheet()
 
 @app.after_request
 def enable_cors(response):
-    origin = request.headers.get('Origin')
+    origin = request.headers.get('Origin', '')
     white_list = ['http://localhost:4200']
     if any([substr in origin for substr in white_list]):
         response.headers.add('Access-Control-Allow-Origin', origin)
-        return response
+        response.headers.add('Access-Control-Allow-Headers', '*')
+    return response
 
 
 @app.route('/', methods=['GET'])
@@ -26,20 +27,12 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route('/transactions/add', methods=['GET'])
-def add_transaction():
-    data = json.loads(request.data)['transaction']
-    name = data['name']
-    amount = data['amount']
-    category = data['category']
-    month = data['month']
-    year = data['year']
-    day = data['day']
-    recurring = data['recurring']
-    transaction = Transaction(name, amount, category,
-                              month, year, day, recurring)
-    transaction_sheet.add_transaction(transaction.to_list())
-    return str(transaction.to_list())
+@app.route('/transactions/add', methods=['POST'])
+def add_transactions():
+    transactions = json.loads(request.data.decode('utf-8'))
+    transaction_sheet.add_transactions(
+        transaction_sheet.clean_transactions(transactions))
+    return ('Success', 200)
 
 
 @app.route('/transactions/get', methods=['GET'])
@@ -64,7 +57,7 @@ def transactions_load_view():
         month = int(args.get('month', 0))
     except Exception:
         print('Improper input values')
-        return 'Input syntax error', 400
+        return ('Input syntax error', 400)
     success = transaction_sheet.populate_monthly_view_helper(year, month)
     return ('Success', 200) if success else ('Failed', 500)
 

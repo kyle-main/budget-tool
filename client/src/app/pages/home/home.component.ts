@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { Category } from '../../core/models/category';
 import { Transaction } from '../../core/models/transaction';
 import { TransactionService } from '../../core/services/transaction.service';
@@ -13,6 +18,7 @@ export class HomeComponent implements OnInit {
   form: FormGroup;
   transactionList: Transaction[] = [];
   recurring: boolean = false;
+  saveButtonDisabled: boolean = true;
   categories: Category[] = [
     { value: 'Rent', parent: 'Home' },
     { value: 'Electricity', parent: 'Home' },
@@ -28,30 +34,54 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // TODO: Add validators
     this.form = this.formBuilder.group({
-      name: [null],
-      amount: [null],
-      category: [null],
-      date: [null],
+      name: [null, Validators.required],
+      amount: [null, Validators.required],
+      category: [null, Validators.required],
+      date: [null, Validators.required],
     });
   }
 
-  addTransaction(): void {
-    let transaction = this.form.getRawValue();
-    transaction['recurring'] = this.recurring;
-    this.transactionList.push(transaction);
+  addButtonDisabled(): boolean {
+    return this.form.valid;
   }
 
+  addTransaction(): void {
+    console.log('adding transaction');
+    let transaction = this.form.getRawValue();
+    transaction['recurring'] = this.recurring;
+    this.transactionList.push(this.castTransaction(transaction));
+    console.log(
+      `${this.transactionList.length} transaction(s) yet to be saved.`
+    );
+    this.saveButtonDisabled = false;
+  }
+
+  castTransaction(list): Transaction {
+    let date: Date = list['date'];
+    let t: Transaction = {
+      name: String(list['name']),
+      amount: Number(list['amount']),
+      category: String(list['category']),
+      year: date.getFullYear(),
+      month: date.getMonth(),
+      day: date.getDay(),
+      recurring: list['recurring'],
+    };
+    return t;
+  }
+
+  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
   clearForm(): void {
-    this.form.reset();
+    this.formGroupDirective.resetForm();
     this.recurring = false;
   }
 
   saveTransactions(): void {
-    this.transactionService
-      .saveTransactions(this.transactionList)
-      .subscribe((res) => {
-        console.log(res);
-      });
+    let res = this.transactionService.saveTransactions(this.transactionList);
+    this.transactionList = [];
+    this.saveButtonDisabled = true;
+    console.log('Response:');
+    console.log(res);
   }
 
   setRecurring(recurring: boolean): void {
@@ -60,6 +90,7 @@ export class HomeComponent implements OnInit {
 
   save() {
     this.saveTransactions();
+    this.clearForm();
   }
 
   submit() {

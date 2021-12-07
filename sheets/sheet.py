@@ -3,13 +3,16 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from google.auth.exceptions import RefreshError
 
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+RETRIED = False
 
 
 class Sheet:
     def __init__(self):
         """ Handle authentication and connection """
+        global RETRIED
         creds = None
         # The file token.json stores the user's access and refresh tokens,
         # and is created automatically when the authorization flow
@@ -20,7 +23,18 @@ class Sheet:
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
+                try:
+                    creds.refresh(Request())
+                except RefreshError:
+                    if RETRIED:
+                        print('Retry failed. Exiting.')
+                        raise
+                    RETRIED = True
+                    print(
+                        'Error refreshing token.\nDeleting token.json and trying again.')
+                    os.remove('token.json')
+                    os.chdir('../')
+                    return self.__init__()
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     'credentials.json', SCOPES)

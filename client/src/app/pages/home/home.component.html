@@ -74,14 +74,20 @@
         class="submit-button"
         color="primary"
         type="submit"
+        [disabled]="form.invalid"
       >
         Add Transaction
       </button>
-      <div class="save-button">
-        <button mat-raised-button color="accent" (click)="save()">
-          Save Transactions
-        </button>
-      </div>
     </form>
+    <div class="save-button">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="save()"
+        [disabled]="saveButtonDisabled"
+      >
+        Save Transactions
+      </button>
+    </div>
   </div>
 </div>
