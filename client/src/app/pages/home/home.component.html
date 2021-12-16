@@ -1,93 +1,111 @@
-<div class="example-container">
-  <h1>Add a new transaction</h1>
-</div>
-<div class="example-container">
-  <div class="form-container">
-    <form [formGroup]="form" (submit)="submit()">
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label> Name </mat-label>
-        <input matInput formControlName="name" />
-        <mat-error
-          *ngIf="form.controls.name.touched && form.controls.name.invalid"
-        >
-          <span *ngIf="form.controls.name.errors.required"
-            >This field is mandatory.</span
+<div class="float-container">
+  <!-- Left Side -->
+  <div class="float-child">
+    <div class="example-container">
+      <h1>Add a new transaction</h1>
+    </div>
+    <div class="example-container">
+      <div class="form-container">
+        <form [formGroup]="form" (submit)="submit()">
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label> Name </mat-label>
+            <input matInput formControlName="name" />
+            <mat-error
+              *ngIf="form.controls.name.touched && form.controls.name.invalid"
+            >
+              <span *ngIf="form.controls.name.errors.required"
+                >This field is mandatory.</span
+              >
+              <span *ngIf="form.controls.name.errors.pattern"
+                >This field is invalid.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label> Category </mat-label>
+            <mat-select #catSelect formControlName="category">
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.value"
+                >{{ category.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="
+                form.controls.category.touched && form.controls.category.invalid
+              "
+            >
+              <span *ngIf="form.controls.category.errors.required"
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label> Amount </mat-label>
+            <input matInput formControlName="amount" />
+            <mat-error
+              *ngIf="
+                form.controls.amount.touched && form.controls.amount.invalid
+              "
+            >
+              <span *ngIf="form.controls.amount.errors.required"
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label> Date </mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker" />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error
+              *ngIf="form.controls.date.touched && form.controls.date.invalid"
+            >
+              <span *ngIf="form.controls.date.errors.required"
+                >This field is mandatory.</span
+              >
+            </mat-error>
+          </mat-form-field>
+          <div class="left-align">
+            <mat-checkbox
+              [checked]="recurring"
+              (change)="setRecurring($event.checked)"
+            >
+              Recurring</mat-checkbox
+            >
+          </div>
+          <button
+            mat-raised-button
+            class="submit-button"
+            color="primary"
+            type="submit"
+            [disabled]="form.invalid"
           >
-          <span *ngIf="form.controls.name.errors.pattern"
-            >This field is invalid.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label> Category </mat-label>
-        <mat-select #catSelect formControlName="category">
-          <mat-option
-            *ngFor="let category of categories"
-            [value]="category.value"
-            >{{ category.value }}
-          </mat-option>
-        </mat-select>
-        <mat-error
-          *ngIf="
-            form.controls.category.touched && form.controls.category.invalid
-          "
-        >
-          <span *ngIf="form.controls.category.errors.required"
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label> Amount </mat-label>
-        <input matInput formControlName="amount" />
-        <mat-error
-          *ngIf="form.controls.amount.touched && form.controls.amount.invalid"
-        >
-          <span *ngIf="form.controls.amount.errors.required"
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="fill">
-        <mat-label> Date </mat-label>
-        <input matInput formControlName="date" [matDatepicker]="picker" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error
-          *ngIf="form.controls.date.touched && form.controls.date.invalid"
-        >
-          <span *ngIf="form.controls.date.errors.required"
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <div class="left-align">
-        <mat-checkbox
-          [checked]="recurring"
-          (change)="setRecurring($event.checked)"
-        >
-          Recurring</mat-checkbox
-        >
+            Add Transaction
+          </button>
+        </form>
       </div>
-      <button
-        mat-raised-button
-        class="submit-button"
-        color="primary"
-        type="submit"
-        [disabled]="form.invalid"
-      >
-        Add Transaction
-      </button>
-    </form>
-    <div class="save-button">
-      <button
-        mat-raised-button
-        color="accent"
-        (click)="save()"
-        [disabled]="saveButtonDisabled"
-      >
-        Save Transactions
-      </button>
+    </div>
+  </div>
+  <!-- Right Side -->
+  <div class="float-child">
+    <div class="form-container">
+      <div class="save-button">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="save()"
+          [disabled]="saveButtonDisabled"
+        >
+          Save Transactions
+        </button>
+      </div>
+      <app-transaction-accordion
+        [transactions]="transactionList"
+      ></app-transaction-accordion>
     </div>
   </div>
 </div>

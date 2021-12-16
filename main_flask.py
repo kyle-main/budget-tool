@@ -29,6 +29,7 @@ def hello_world():
 
 @app.route('/transactions/add', methods=['POST'])
 def add_transactions():
+    # category field currently broken
     transactions = json.loads(request.data.decode('utf-8'))
     transaction_sheet.add_transactions(
         transaction_sheet.clean_transactions(transactions))
