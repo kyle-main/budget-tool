@@ -28,6 +28,7 @@
                 *ngFor="let category of categories"
                 [value]="category.value"
                 >{{ category.value }}
+                <span style="float: right">{{ category.parent }}</span>
               </mat-option>
             </mat-select>
             <mat-error

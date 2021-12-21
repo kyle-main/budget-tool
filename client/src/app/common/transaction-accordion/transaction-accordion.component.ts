@@ -9,19 +9,16 @@ import { Transaction } from '../../core/models/transaction';
 })
 export class TransactionAccordionComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  t: Transaction = {
-    name: 'Chipotle',
-    amount: -12.45,
-    category: 'Food',
-    year: 2021,
-    month: 12,
-    day: 16,
-    recurring: false,
-  };
-  @Input('transactions') trasactions: Transaction[] = [];
+  @Input('transactions') transactions: Transaction[] = [];
   constructor() {}
 
-  ngOnInit(): void {
-    this.trasactions.push(this.t);
+  ngOnInit(): void {}
+
+  deleteTransaction(transaction: any): void {
+    console.log(transaction);
+    const index = this.transactions.indexOf(transaction);
+    if (index > -1) {
+      this.transactions.splice(index, 1);
+    }
   }
 }

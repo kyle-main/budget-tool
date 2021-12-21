@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { TransactionAccordionComponent } from './common/transaction-accordion/transaction-accordion.component';
+import { MoneyFormatterPipe } from './core/pipes/money-formatter.pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TransactionAccordionComponent } from './common/transaction-accordion/tr
     HomeComponent,
     NavbarComponent,
     TransactionAccordionComponent,
+    MoneyFormatterPipe,
   ],
   imports: [
     BrowserModule,

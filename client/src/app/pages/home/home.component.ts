@@ -5,7 +5,11 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { Category } from '../../core/models/category';
+import {
+  Category,
+  CATEGORIES,
+  PARENT_CATEGORIES,
+} from '../../core/models/category';
 import { Transaction } from '../../core/models/transaction';
 import { TransactionService } from '../../core/services/transaction.service';
 
@@ -19,12 +23,7 @@ export class HomeComponent implements OnInit {
   transactionList: Transaction[] = [];
   recurring: boolean = false;
   saveButtonDisabled: boolean = true;
-  categories: Category[] = [
-    { value: 'Rent', parent: 'Home' },
-    { value: 'Electricity', parent: 'Home' },
-    { value: 'Car Payment', parent: 'Transportation' },
-    { value: 'Fuel', parent: 'Transportation' },
-  ];
+  categories: Category[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,16 +38,24 @@ export class HomeComponent implements OnInit {
       category: [null, Validators.required],
       date: [null, Validators.required],
     });
+    this.categories = CATEGORIES;
   }
 
   addButtonDisabled(): boolean {
     return this.form.valid;
   }
 
+  isExpense(category: Category): boolean {
+    return category.parent !== PARENT_CATEGORIES.INCOME;
+  }
+
   addTransaction(): void {
     console.log('adding transaction');
     let transaction = this.form.getRawValue();
     transaction['recurring'] = this.recurring;
+    if (this.isExpense(transaction['category'].parent)) {
+      transaction['amount'] = transaction['amount'] * -1;
+    }
     this.transactionList.push(this.castTransaction(transaction));
     console.log(
       `${this.transactionList.length} transaction(s) yet to be saved.`

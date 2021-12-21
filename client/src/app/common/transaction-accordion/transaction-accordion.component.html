@@ -3,19 +3,23 @@
   <button mat-button (click)="accordion.closeAll()">Collapse All</button>
 </div>
 <mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel *ngFor="let transaction of trasactions">
+  <mat-expansion-panel *ngFor="let transaction of transactions">
     <mat-expansion-panel-header class="right-aligned-header">
       <mat-panel-title>{{ transaction.name }} </mat-panel-title>
       <mat-panel-description>
         {{ transaction.category }}
+        <span style="float: right">
+          {{ transaction.amount | moneyFormatter }}
+        </span>
       </mat-panel-description>
     </mat-expansion-panel-header>
-
-    <mat-form-field style="width: 100%" appearance="fill">
-      <mat-label> Date </mat-label>
-      <input matInput [matDatepicker]="picker" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <button
+      mat-raised-button
+      style="float: right"
+      color="warn"
+      (click)="deleteTransaction(transaction)"
+    >
+      Delete
+    </button>
   </mat-expansion-panel>
 </mat-accordion>
