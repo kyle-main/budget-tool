@@ -13,13 +13,18 @@
         </span>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <button
-      mat-raised-button
-      style="float: right"
-      color="warn"
-      (click)="deleteTransaction(transaction)"
-    >
-      Delete
-    </button>
+    <div>
+      {{ transaction.day | dateFormatter: transaction.month:transaction.year }}
+      <br />
+      Recurring: {{ transaction.recurring }}
+      <button
+        mat-raised-button
+        style="float: right"
+        color="warn"
+        (click)="deleteTransaction(transaction)"
+      >
+        Delete
+      </button>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>

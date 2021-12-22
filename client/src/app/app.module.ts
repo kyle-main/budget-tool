@@ -25,6 +25,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { TransactionAccordionComponent } from './common/transaction-accordion/transaction-accordion.component';
 import { MoneyFormatterPipe } from './core/pipes/money-formatter.pipe';
+import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MoneyFormatterPipe } from './core/pipes/money-formatter.pipe';
     NavbarComponent,
     TransactionAccordionComponent,
     MoneyFormatterPipe,
+    DateFormatterPipe,
   ],
   imports: [
     BrowserModule,

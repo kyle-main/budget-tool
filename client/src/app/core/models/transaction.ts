@@ -1,10 +1,10 @@
 import { Category } from './category';
 export interface Transaction {
-  name: String;
-  amount: Number;
-  category: String;
-  year: Number;
-  month: Number;
-  day: Number;
+  name: string;
+  amount: number;
+  category: Category;
+  year: number;
+  month: number;
+  day: number;
   recurring: boolean;
 }

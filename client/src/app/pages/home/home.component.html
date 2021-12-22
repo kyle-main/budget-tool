@@ -24,9 +24,7 @@
           <mat-form-field class="form-field" appearance="fill">
             <mat-label> Category </mat-label>
             <mat-select #catSelect formControlName="category">
-              <mat-option
-                *ngFor="let category of categories"
-                [value]="category.value"
+              <mat-option *ngFor="let category of categories" [value]="category"
                 >{{ category.value }}
                 <span style="float: right">{{ category.parent }}</span>
               </mat-option>

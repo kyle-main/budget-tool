@@ -45,21 +45,17 @@ export class HomeComponent implements OnInit {
     return this.form.valid;
   }
 
-  isExpense(category: Category): boolean {
-    return category.parent !== PARENT_CATEGORIES.INCOME;
+  isExpense(parentCategory: string): boolean {
+    return parentCategory !== PARENT_CATEGORIES.INCOME;
   }
 
   addTransaction(): void {
-    console.log('adding transaction');
     let transaction = this.form.getRawValue();
     transaction['recurring'] = this.recurring;
     if (this.isExpense(transaction['category'].parent)) {
       transaction['amount'] = transaction['amount'] * -1;
     }
     this.transactionList.push(this.castTransaction(transaction));
-    console.log(
-      `${this.transactionList.length} transaction(s) yet to be saved.`
-    );
     this.saveButtonDisabled = false;
   }
 
@@ -68,10 +64,10 @@ export class HomeComponent implements OnInit {
     let t: Transaction = {
       name: String(list['name']),
       amount: Number(list['amount']),
-      category: String(list['category']),
+      category: list['category'].value,
       year: date.getFullYear(),
-      month: date.getMonth(),
-      day: date.getDay(),
+      month: date.getMonth(), // starting from zero
+      day: date.getDate(),
       recurring: list['recurring'],
     };
     return t;
@@ -87,8 +83,6 @@ export class HomeComponent implements OnInit {
     let res = this.transactionService.saveTransactions(this.transactionList);
     this.transactionList = [];
     this.saveButtonDisabled = true;
-    console.log('Response:');
-    console.log(res);
   }
 
   setRecurring(recurring: boolean): void {
