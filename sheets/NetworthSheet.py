@@ -1,5 +1,5 @@
 import os
-from .sheet import Sheet
+from .Sheet import Sheet
 from dotenv import load_dotenv
 load_dotenv()
 

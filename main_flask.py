@@ -1,10 +1,12 @@
 """ Main code entry point """
 import json
+
 from rich import print as pprint
-from flask import Flask, request, jsonify
-from models.transaction import Transaction
-from sheets.transaction_sheet import TransactionSheet
-from sheets.networth_sheet import NetworthSheet
+from flask import Flask, request
+
+from sheets import NetworthSheet
+from sheets import TransactionSheet
+from dashboard import create_dashboard
 
 app = Flask(__name__)
 
@@ -74,6 +76,19 @@ def get_networth():
         return 'Input syntax error', 400
     values = networth_sheet.get_data()
     return str(values)
+
+
+@app.route('/dashboards/', methods=['GET'])
+def create_dashboard():
+    try:
+        year = int(request.args.get('year'))
+        month = int(request.args.get('month'))
+    except Exception:
+        print('Improper input values')
+        return 'Input syntax error', 400
+    values = eval(get_transactions())
+    create_dashboard.create_monthly_dashboard(values)
+    return ('Success', 200) if values else ('Failed', 500)
 
 
 def main():
