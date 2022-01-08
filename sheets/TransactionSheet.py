@@ -6,6 +6,8 @@ load_dotenv()
 
 TRANSACTIONS_SPREADSHEET_ID = os.getenv('TRANSACTIONS_SPREADSHEET_ID')
 TRANSACTION_SHEET_RANGE = 'Transactions!A2:H'
+TRANSACTION_SHEET_HEADERS = [
+    'Name', 'Amount', 'Category', 'Month', 'Year', 'Day', 'Recurring', 'ID']
 VIEW_SHEET_RANGE = 'Monthly View Helper!A2:H'
 
 
@@ -33,6 +35,9 @@ class TransactionSheet(Sheet):
             valueInputOption=value_input_option,
             insertDataOption=insert_data_option, body=value_range_body)
         request.execute()
+
+    def get_headers(self) -> list:
+        return TRANSACTION_SHEET_HEADERS
 
     def get_transactions(self, year: int = 0, month: int = 0, day: int = 0) -> list:
         """ Get all the values from our spread sheet in a range """

@@ -1,4 +1,5 @@
 auth/
+local_transactions.csv
 .vscode
 .env
 **/__pycache__

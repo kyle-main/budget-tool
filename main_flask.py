@@ -1,5 +1,6 @@
 """ Main code entry point """
 import json
+import csv
 
 from rich import print as pprint
 from flask import Flask, request
@@ -63,6 +64,16 @@ def transactions_load_view():
         return ('Input syntax error', 400)
     success = transaction_sheet.populate_monthly_view_helper(year, month)
     return ('Success', 200) if success else ('Failed', 500)
+
+
+@app.route('/transactions/make-local-backup', methods=['GET'])
+def transactions_make_local_backup():
+    all_transactions = transaction_sheet.get_transactions()
+    with open('local_transactions.csv', 'w') as f:
+        write = csv.writer(f)
+        write.writerow(transaction_sheet.get_headers())
+        write.writerows(all_transactions)
+    return ('Success', 200)
 
 
 @app.route('/networth/get', methods=['GET'])
