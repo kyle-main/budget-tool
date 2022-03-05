@@ -13,6 +13,9 @@ class NetworthSheet(Sheet):
     def __init__(self):
         super().__init__()
 
+    def add_record(self, value: list) -> None:
+        return None
+
     def get_data(self) -> list:
         """ Get all the values from our spread sheet in a range """
         result = self.sheet.values().get(spreadsheetId=NETWORTH_SPREADSHEET_ID,

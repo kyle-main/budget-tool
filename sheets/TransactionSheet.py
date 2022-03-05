@@ -6,6 +6,7 @@ load_dotenv()
 
 TRANSACTIONS_SPREADSHEET_ID = os.getenv('TRANSACTIONS_SPREADSHEET_ID')
 TRANSACTION_SHEET_RANGE = 'Transactions!A2:H'
+# TODO: Get from sheet on first load incase more headers are added.
 TRANSACTION_SHEET_HEADERS = [
     'Name', 'Amount', 'Category', 'Month', 'Year', 'Day', 'Recurring', 'ID']
 VIEW_SHEET_RANGE = 'Monthly View Helper!A2:H'
@@ -46,7 +47,7 @@ class TransactionSheet(Sheet):
         values = result.get('values', [])
         if year > 0:
             values = [x for x in values if int(x[4]) == year]
-        if month > 0:
+        if month > -1:  # because we started months at zero (should change)
             values = [x for x in values if int(x[3]) == month]
         if day > 0:
             values = [x for x in values if int(x[5]) == day]
