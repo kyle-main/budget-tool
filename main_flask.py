@@ -69,6 +69,7 @@ def transactions_load_view():
 @app.route('/transactions/make-local-backup', methods=['GET'])
 def transactions_make_local_backup():
     all_transactions = transaction_sheet.get_transactions()
+    print(len(all_transactions))
     with open('local_transactions.csv', 'w') as f:
         write = csv.writer(f)
         write.writerow(transaction_sheet.get_headers())

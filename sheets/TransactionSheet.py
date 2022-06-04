@@ -40,7 +40,7 @@ class TransactionSheet(Sheet):
     def get_headers(self) -> list:
         return TRANSACTION_SHEET_HEADERS
 
-    def get_transactions(self, year: int = 0, month: int = 0, day: int = 0) -> list:
+    def get_transactions(self, year: int = 0, month: int = -1, day: int = 0) -> list:
         """ Get all the values from our spread sheet in a range """
         result = self.sheet.values().get(spreadsheetId=TRANSACTIONS_SPREADSHEET_ID,
                                          range=TRANSACTION_SHEET_RANGE).execute()
