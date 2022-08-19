@@ -35,7 +35,8 @@ def add_transactions():
     # category field currently broken
     transactions = json.loads(request.data.decode('utf-8'))
     transaction_sheet.add_transactions(
-        transaction_sheet.clean_transactions(transactions))
+        transaction_sheet.clean_transactions(transactions)
+    )
     return ('Success', 200)
 
 
@@ -104,9 +105,10 @@ def create_dashboard():
 
 
 def main():
-    """ main function """
+    """main function"""
     pprint(
-        f"\n\tThis is a [link=https://flask.palletsprojects.com/en/2.0.x/quickstart/]Flask[/link] application.\n\tPlease run:\n\t\t[{'blue'}]export FLASK_APP=main_flask && flask run[/{'blue'}]\n\tto start the development server.\n")
+        f"\n\tThis is a [link=https://flask.palletsprojects.com/en/2.0.x/quickstart/]Flask[/link] application.\n\tPlease run:\n\t\t[{'blue'}]export FLASK_APP=main_flask && flask run[/{'blue'}]\n\tto start the development server.\n"
+    )
 
 
 if __name__ == "__main__":
