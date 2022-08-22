@@ -2,6 +2,7 @@ auth/
 local_transactions.csv
 .vscode
 .env
+**/.angular/
 **/__pycache__
 **/.DS_Store
 **/node_modules
