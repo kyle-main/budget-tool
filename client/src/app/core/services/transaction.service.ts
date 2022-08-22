@@ -36,7 +36,15 @@ export class TransactionService {
 
   public saveTransactions(transactions: Transaction[]): Promise<any> {
     let URL = this._url + 'transactions/add';
-    let body = transactions;
+    // python transaction interface has
+    //   category as a string, so we have
+    //   to convert it here from Category.
+    let body = transactions.map((t) => {
+      return {
+        ...t,
+        category: t.category.value,
+      };
+    });
     return this._http
       .post(URL, body, this.getHttpOptions())
       .toPromise()

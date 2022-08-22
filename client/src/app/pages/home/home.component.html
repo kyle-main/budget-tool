@@ -104,6 +104,7 @@
       </div>
       <app-transaction-accordion
         [transactions]="transactionList"
+        (editTransactionEvent)="setFormTransaction($event)"
       ></app-transaction-accordion>
     </div>
   </div>

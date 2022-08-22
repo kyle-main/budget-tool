@@ -7,7 +7,7 @@
     <mat-expansion-panel-header class="right-aligned-header">
       <mat-panel-title>{{ transaction.name }} </mat-panel-title>
       <mat-panel-description>
-        {{ transaction.category }}
+        {{ transaction.category.value }}
         <span style="float: right">
           {{ transaction.amount | moneyFormatter }}
         </span>
@@ -17,14 +17,23 @@
       {{ transaction.day | dateFormatter: transaction.month:transaction.year }}
       <br />
       Recurring: {{ transaction.recurring }}
-      <button
-        mat-raised-button
-        style="float: right"
-        color="warn"
-        (click)="deleteTransaction(transaction)"
-      >
-        Delete
-      </button>
+      <div style="float: right">
+        <button
+          mat-raised-button
+          style="margin-right: 1rem"
+          color="secondary"
+          (click)="editTransaction(transaction)"
+        >
+          Edit
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="deleteTransaction(transaction)"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   </mat-expansion-panel>
 </mat-accordion>
