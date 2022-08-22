@@ -15,6 +15,9 @@ git clone git@github.com:kyle-main/budget-tool.git
 With python 3.9 or higher run
 
 ```bash
+mkdir .venv
+python3 -m venv .venv
+. .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
