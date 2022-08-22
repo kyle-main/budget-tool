@@ -18,6 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -55,6 +56,7 @@ import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
