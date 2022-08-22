@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // TODO: Add validators
+    // TODO: Add type validators to fields
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       amount: [null, Validators.required],
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
     let t: Transaction = {
       name: String(list['name']),
       amount: Number(list['amount']),
-      category: list['category'].value,
+      category: list['category'],
       year: date.getFullYear(),
       month: date.getMonth(), // starting from zero
       day: date.getDate(),
@@ -87,6 +87,20 @@ export class HomeComponent implements OnInit {
 
   setRecurring(recurring: boolean): void {
     this.recurring = recurring;
+  }
+
+  setFormTransaction(transaction: Transaction): void {
+    this.clearForm();
+    this.form.get('name').setValue(transaction.name);
+    this.form.get('amount').setValue(transaction.amount);
+    this.recurring = transaction.recurring;
+    let categoryIndex = this.categories.indexOf(
+      this.categories.find((t) => t.value === transaction.category.value)
+    );
+    this.form.get('category').setValue(this.categories[categoryIndex]);
+    this.form
+      .get('date')
+      .setValue(new Date(transaction.year, transaction.month, transaction.day));
   }
 
   save() {
