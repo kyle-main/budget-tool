@@ -50,12 +50,11 @@ To use this project with your own data you will need:
 
 [**How to get access credentials**](https://developers.google.com/workspace/guides/create-credentials)
 
-When you have your credentials.json and token.json...
+When you have your credentials.json file
 
 ```bash
 mkdir auth
 mv ~/credentials.json auth/
-mv ~/token.json auth/
 ```
 
 Next create a .env file in the root directory of the project.
