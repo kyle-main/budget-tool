@@ -61,7 +61,7 @@ mkdir auth
 mv ~/credentials.json auth/
 ```
 
-Next create a .env file in the root directory of the project.
+Next create a .env file in the server directory of the project.
 Inside it should look like this:
 
 ```bash
