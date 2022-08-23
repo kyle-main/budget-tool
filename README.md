@@ -15,6 +15,7 @@ git clone git@github.com:kyle-main/budget-tool.git
 With python 3.9 or higher run
 
 ```bash
+cd server
 mkdir .venv
 python3 -m venv .venv
 . .venv/bin/activate
@@ -32,7 +33,7 @@ npm -i -y
 
 ## Running Locally:
 
-To start our flask server run
+To start our flask server, in the server directory run
 
 ```bash
 export FLASK_APP=main_flask && flask run

@@ -17,7 +17,7 @@ class Sheet:
         # The file token.json stores the user's access and refresh tokens,
         # and is created automatically when the authorization flow
         # completes for the first time.
-        os.chdir('./auth/')
+        os.chdir('../auth/')
         if os.path.exists('token.json'):
             creds = Credentials.from_authorized_user_file('token.json', SCOPES)
         # If there are no (valid) credentials available, let the user log in.
@@ -44,4 +44,4 @@ class Sheet:
                 token.write(creds.to_json())
         self.service = build('sheets', 'v4', credentials=creds)
         self.sheet = self.service.spreadsheets()
-        os.chdir('../')
+        os.chdir('../server/')
