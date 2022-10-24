@@ -37,6 +37,7 @@ def add_transactions():
     transaction_sheet.add_transactions(
         transaction_sheet.clean_transactions(transactions)
     )
+    transactions_make_local_backup()
     return ('Success', 200)
 
 

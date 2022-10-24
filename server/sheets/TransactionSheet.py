@@ -69,7 +69,7 @@ class TransactionSheet(Sheet):
 
     def clean_transactions(self, l: list) -> list:
         """ Given a list of transactions, 
-            instanciate them and convert back to list for uniformity """
+            instantiate them and convert back to list for uniformity """
         clean_list = []
         for t in l:
             name = t['name']
