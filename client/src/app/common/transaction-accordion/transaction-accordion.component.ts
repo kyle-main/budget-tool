@@ -31,6 +31,7 @@ export class TransactionAccordionComponent implements OnInit {
   }
 
   editTransaction(transaction: Transaction): void {
+    transaction.amount = Math.abs(transaction.amount);
     this.editTransactionEvent.emit(transaction);
     this.deleteTransaction(transaction);
   }
