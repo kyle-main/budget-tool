@@ -52,13 +52,14 @@ const CATEGORIES: Category[] = [
   { value: 'Travel', parent: PARENT_CATEGORIES.VACATION },
   { value: 'Other', parent: PARENT_CATEGORIES.OTHER },
   { value: 'Paycheck', parent: PARENT_CATEGORIES.INCOME },
+  { value: 'Bonus', parent: PARENT_CATEGORIES.INCOME },
   { value: 'Refunds', parent: PARENT_CATEGORIES.INCOME },
   { value: 'Cashback', parent: PARENT_CATEGORIES.INCOME },
   { value: 'Interest', parent: PARENT_CATEGORIES.INCOME },
   { value: 'Emergency Fund', parent: PARENT_CATEGORIES.SAVINGS },
   { value: 'Savings', parent: PARENT_CATEGORIES.SAVINGS },
   { value: 'IRA', parent: PARENT_CATEGORIES.SAVINGS },
-  { value: 'Stundent Loans', parent: PARENT_CATEGORIES.SAVINGS },
+  { value: 'Student Loans', parent: PARENT_CATEGORIES.SAVINGS },
 ];
 
 export { Category, CATEGORIES, PARENT_CATEGORIES };
