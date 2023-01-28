@@ -1,9 +1,10 @@
 <div
-  class="grow pl-3 pr-6 py-3 m-2 rounded-md shadow-md relative"
+  class="grow w-52 pl-3 pr-6 py-3 m-2 rounded-md shadow-md relative"
   [ngClass]="[
     greenBlue() ? 'bg-gradient-to-tr from-green-300 to-cyan-300' : '',
     purpleRed() ? 'bg-gradient-to-tr from-purple-400 to-red-400' : '',
-    yellowOrange() ? 'bg-gradient-to-tr from-yellow-200 to-orange-500' : ''
+    yellowOrange() ? 'bg-gradient-to-tr from-yellow-200 to-orange-500' : '',
+    dark() ? 'bg-gray-800 text-neutral-100' : 'bg-neutral-100 text-neutral-800'
   ]"
 >
   <button
@@ -75,7 +76,10 @@
 
   <h2 class="text-3xl">{{ this.amount | moneyFormatter }}</h2>
 
-  <div class="text-sm text-neutral-800 font-bold tracking-wider">
+  <div
+    class="text-sm text-neutral-800 font-bold tracking-wider"
+    [ngClass]="dark() ? 'text-neutral-200' : ''"
+  >
     {{ this.accountType }}
   </div>
 
@@ -101,7 +105,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="absolute w-6 h-6 text-neutral-900"
+      class="absolute w-6 h-6"
       [ngClass]="deltaIsNegative() ? 'visible' : 'invisible'"
     >
       <path
@@ -112,8 +116,16 @@
     </svg>
 
     <div class="flex ml-1">
-      <div class="text-md font-bold text-neutral-900">{{ deltaABS() }}%</div>
-      <div class="text-md text-neutral-900 ml-1 whitespace-nowrap">
+      <div
+        class="text-md font-bold text-neutral-900"
+        [ngClass]="dark() ? 'text-neutral-200' : ''"
+      >
+        {{ deltaABS() }}%
+      </div>
+      <div
+        class="text-md text-neutral-900 ml-1 whitespace-nowrap"
+        [ngClass]="dark() ? 'text-neutral-200' : ''"
+      >
         This Month
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GradientColorScheme } from 'src/app/core/models/color-scheme';
+import { ColorScheme } from 'src/app/core/models/color-scheme';
 import { Account } from 'src/app/core/models/account';
 
 @Component({
@@ -11,13 +11,13 @@ export class AccountSummaryComponent implements OnInit {
   @Input() accountType: Account | null;
   @Input() amount: number;
   @Input() delta: number;
-  @Input() colorScheme: GradientColorScheme;
+  @Input() colorScheme: ColorScheme;
 
   constructor() {
     this.accountType = null;
     this.amount = 0.0;
     this.delta = 0.0;
-    this.colorScheme = GradientColorScheme['green-blue'];
+    this.colorScheme = ColorScheme.LIGHT;
   }
 
   ngOnInit(): void {}
@@ -40,17 +40,21 @@ export class AccountSummaryComponent implements OnInit {
 
   public greenBlue(): boolean {
     // return whether the color scheme is green to blue gradient
-    return this.colorScheme == GradientColorScheme['green-blue'];
+    return this.colorScheme == ColorScheme.GREEN_BLUE;
   }
 
   public purpleRed(): boolean {
     // return whether the color scheme is purple to red gradient
-    return this.colorScheme == GradientColorScheme['purple-red'];
+    return this.colorScheme == ColorScheme.PURPLE_RED;
   }
 
   public yellowOrange(): boolean {
     // return whether the color scheme is yellow to orange gradient
-    return this.colorScheme == GradientColorScheme['yellow-orange'];
+    return this.colorScheme == ColorScheme.YELLOW_ORANGE;
+  }
+
+  public dark(): boolean {
+    return this.colorScheme == ColorScheme.DARK;
   }
 
   public isSavingsAccount(): boolean {

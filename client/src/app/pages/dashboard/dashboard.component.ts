@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from 'src/app/core/models/account';
-import { GradientColorScheme } from 'src/app/core/models/color-scheme';
+import { ColorScheme } from 'src/app/core/models/color-scheme';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +8,10 @@ import { GradientColorScheme } from 'src/app/core/models/color-scheme';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  colorScheme: typeof GradientColorScheme;
+  colorScheme: typeof ColorScheme;
   account: typeof Account;
   constructor() {
-    this.colorScheme = GradientColorScheme;
+    this.colorScheme = ColorScheme;
     this.account = Account;
   }
 
