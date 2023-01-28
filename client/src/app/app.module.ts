@@ -28,6 +28,8 @@ import { TransactionAccordionComponent } from './common/transaction-accordion/tr
 import { MoneyFormatterPipe } from './core/pipes/money-formatter.pipe';
 import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { AccountSummaryComponent } from './common/account-summary/account-summary.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     MoneyFormatterPipe,
     DateFormatterPipe,
     DashboardComponent,
+    TransactionsComponent,
+    AccountSummaryComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+export enum Account {
+  CHECKING = 'CHECKING',
+  SAVINGS = 'SAVINGS',
+  IRA = 'IRA',
+  K401 = '401K',
+  HSA = 'HSA',
+  CREDIT_CARD = 'CREDIT CARD',
+  INVESTMENT = 'INVESTMENT',
+}

@@ -1,1 +1,22 @@
-<p>dashboard works!</p>
+<div class="relative mx-auto mt-10 max-w-3xl px-4">
+  <div class="flex flex-wrap justify-between">
+    <app-account-summary
+      [colorScheme]="colorScheme['green-blue']"
+      [accountType]="account.CREDIT_CARD"
+      [amount]="2567.12"
+      [delta]="-5.29"
+    ></app-account-summary>
+    <app-account-summary
+      [colorScheme]="colorScheme['purple-red']"
+      [accountType]="account.SAVINGS"
+      [amount]="10561.12"
+      [delta]="13.45"
+    ></app-account-summary>
+    <app-account-summary
+      [colorScheme]="colorScheme['yellow-orange']"
+      [accountType]="account.K401"
+      [amount]="107789.53"
+      [delta]="1.35"
+    ></app-account-summary>
+  </div>
+</div>
