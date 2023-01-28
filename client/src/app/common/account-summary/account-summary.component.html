@@ -4,11 +4,11 @@
     greenBlue() ? 'bg-gradient-to-tr from-green-300 to-cyan-300' : '',
     purpleRed() ? 'bg-gradient-to-tr from-purple-400 to-red-400' : '',
     yellowOrange() ? 'bg-gradient-to-tr from-yellow-200 to-orange-500' : '',
-    dark() ? 'bg-gray-800 text-neutral-100' : 'bg-neutral-100 text-neutral-800'
+    dark() ? 'bg-zinc-800 text-zinc-200' : 'bg-zinc-100 text-zinc-800'
   ]"
 >
   <button
-    class="absolute top-2 right-1 rounded-full hover:opacity-75 hover:bg-opacity-75 text-opacity-100 bg-opacity-0 bg-white"
+    class="absolute p-1 top-2 right-1 rounded-full hover:opacity-75 hover:bg-opacity-75 text-opacity-100 bg-opacity-0 bg-white"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -77,8 +77,8 @@
   <h2 class="text-3xl">{{ this.amount | moneyFormatter }}</h2>
 
   <div
-    class="text-sm text-neutral-800 font-bold tracking-wider"
-    [ngClass]="dark() ? 'text-neutral-200' : ''"
+    class="text-sm font-bold tracking-wider"
+    [ngClass]="dark() ? 'text-zinc-300' : 'text-zinc-800'"
   >
     {{ this.accountType }}
   </div>
@@ -117,14 +117,14 @@
 
     <div class="flex ml-1">
       <div
-        class="text-md font-bold text-neutral-900"
-        [ngClass]="dark() ? 'text-neutral-200' : ''"
+        class="text-md font-bold"
+        [ngClass]="dark() ? 'text-zinc-300' : 'text-zinc-900'"
       >
         {{ deltaABS() }}%
       </div>
       <div
-        class="text-md text-neutral-900 ml-1 whitespace-nowrap"
-        [ngClass]="dark() ? 'text-neutral-200' : ''"
+        class="text-md ml-1 whitespace-nowrap"
+        [ngClass]="dark() ? 'text-zinc-300' : 'text-zinc-900'"
       >
         This Month
       </div>
