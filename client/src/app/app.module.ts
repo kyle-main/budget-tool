@@ -27,6 +27,7 @@ import { NavbarComponent } from './common/navbar/navbar.component';
 import { TransactionAccordionComponent } from './common/transaction-accordion/transaction-accordion.component';
 import { MoneyFormatterPipe } from './core/pipes/money-formatter.pipe';
 import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
     TransactionAccordionComponent,
     MoneyFormatterPipe,
     DateFormatterPipe,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
