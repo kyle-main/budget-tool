@@ -53,6 +53,13 @@ export class AccountSummaryComponent implements OnInit {
     return this.colorScheme == ColorScheme.YELLOW_ORANGE;
   }
 
+  public gradient(): boolean {
+    return !(
+      this.colorScheme == ColorScheme.DARK ||
+      this.colorScheme == ColorScheme.LIGHT
+    );
+  }
+
   public dark(): boolean {
     return this.colorScheme == ColorScheme.DARK;
   }

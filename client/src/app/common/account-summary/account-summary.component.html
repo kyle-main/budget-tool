@@ -4,11 +4,17 @@
     greenBlue() ? 'bg-gradient-to-tr from-green-300 to-cyan-300' : '',
     purpleRed() ? 'bg-gradient-to-tr from-purple-400 to-red-400' : '',
     yellowOrange() ? 'bg-gradient-to-tr from-yellow-200 to-orange-500' : '',
-    dark() ? 'bg-zinc-800 text-zinc-200' : 'bg-zinc-100 text-zinc-800'
+    dark() ? 'bg-gray-800 text-zinc-100' : 'bg-zinc-100 text-zinc-900'
   ]"
 >
   <button
-    class="absolute p-1 top-2 right-1 rounded-full hover:opacity-75 hover:bg-opacity-75 text-opacity-100 bg-opacity-0 bg-white"
+    class="absolute p-1 top-2 right-1 rounded-full bg-opacity-0"
+    [ngClass]="[
+      dark()
+        ? 'text-zinc-200 hover:bg-gray-700 hover:text-white'
+        : 'text-zinc-800 hover:bg-neutral-300 hover:text-black',
+      gradient() ? 'hover:bg-opacity-30' : ''
+    ]"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -74,23 +80,25 @@
     </svg>
   </div>
 
-  <h2 class="text-3xl">{{ this.amount | moneyFormatter }}</h2>
+  <h2 class="text-3xl" [ngClass]="[dark() ? 'text-zinc-100' : 'text-zinc-900']">
+    {{ this.amount | moneyFormatter }}
+  </h2>
 
   <div
     class="text-sm font-bold tracking-wider"
-    [ngClass]="dark() ? 'text-zinc-300' : 'text-zinc-800'"
+    [ngClass]="dark() ? 'text-zinc-200' : 'text-zinc-800'"
   >
     {{ this.accountType }}
   </div>
 
-  <div class="flex mt-1">
+  <div class="flex mt-2">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-6 h-6"
+      class="w-5 h-5"
       [ngClass]="deltaIsPositive() ? 'visible' : 'invisible'"
     >
       <path
@@ -105,7 +113,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="absolute w-6 h-6"
+      class="absolute w-5 h-5"
       [ngClass]="deltaIsNegative() ? 'visible' : 'invisible'"
     >
       <path
@@ -117,14 +125,14 @@
 
     <div class="flex ml-1">
       <div
-        class="text-md font-bold"
-        [ngClass]="dark() ? 'text-zinc-300' : 'text-zinc-900'"
+        class="text-sm font-bold"
+        [ngClass]="dark() ? 'text-zinc-200' : 'text-zinc-800'"
       >
         {{ deltaABS() }}%
       </div>
       <div
-        class="text-md ml-1 whitespace-nowrap"
-        [ngClass]="dark() ? 'text-zinc-300' : 'text-zinc-900'"
+        class="text-sm ml-1 whitespace-nowrap"
+        [ngClass]="dark() ? 'text-zinc-200' : 'text-zinc-800'"
       >
         This Month
       </div>
