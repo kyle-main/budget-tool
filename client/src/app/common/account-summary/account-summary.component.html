@@ -4,14 +4,14 @@
     greenBlue() ? 'bg-gradient-to-tr from-green-300 to-cyan-300' : '',
     purpleRed() ? 'bg-gradient-to-tr from-purple-400 to-red-400' : '',
     yellowOrange() ? 'bg-gradient-to-tr from-yellow-200 to-orange-500' : '',
-    dark() ? 'bg-gray-900 text-zinc-100' : 'bg-zinc-100 text-zinc-900'
+    dark() ? 'bg-atom-800 text-zinc-100' : 'bg-zinc-100 text-zinc-900'
   ]"
 >
   <button
     class="absolute p-1 top-2 right-1 rounded-full bg-opacity-0"
     [ngClass]="[
       dark()
-        ? 'text-zinc-200 hover:bg-gray-700 hover:text-white'
+        ? 'text-zinc-200 hover:bg-atom-700 hover:text-white'
         : 'text-zinc-800 hover:bg-neutral-300 hover:text-black',
       gradient() ? 'hover:bg-opacity-30' : ''
     ]"
