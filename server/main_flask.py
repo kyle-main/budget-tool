@@ -88,9 +88,8 @@ def get_networth():
     except Exception:
         print('Improper input values')
         return 'Input syntax error', 400
-    # values = networth_sheet.get_data()
-    # return str(values)
-    return 'Working get_networth()'
+    values = networth_sheet.get_data()
+    return str(values)
 
 
 @app.route('/dashboards/', methods=['GET'])

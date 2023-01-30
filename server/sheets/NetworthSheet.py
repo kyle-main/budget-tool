@@ -1,10 +1,11 @@
 import os
+import unicodedata
 from .Sheet import Sheet
 from dotenv import load_dotenv
 load_dotenv()
 
 NETWORTH_SPREADSHEET_ID = os.getenv('NETWORTH_SPREADSHEET_ID')
-NETWORTH_SHEET_RANGE = 'Networth Raw!A1:L'
+NETWORTH_SHEET_RANGE = 'Net Worth!B3:X'
 
 
 class NetworthSheet(Sheet):
@@ -21,4 +22,4 @@ class NetworthSheet(Sheet):
         result = self.sheet.values().get(spreadsheetId=NETWORTH_SPREADSHEET_ID,
                                          range=NETWORTH_SHEET_RANGE).execute()
         values = result.get('values', [])
-        return values
+        return self.unicode_normalize_2d_list(values)

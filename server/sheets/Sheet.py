@@ -1,4 +1,5 @@
 import os
+import unicodedata
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -45,3 +46,9 @@ class Sheet:
         self.service = build('sheets', 'v4', credentials=creds)
         self.sheet = self.service.spreadsheets()
         os.chdir('../')
+
+    def unicode_normalize_2d_list(list: list) -> list:
+        for i, row in enumerate(list):
+            for j, element in enumerate(row):
+                list[i][j] = unicodedata.normalize('NFKC', element)
+        return list

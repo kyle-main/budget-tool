@@ -30,6 +30,7 @@ import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { AccountSummaryComponent } from './common/account-summary/account-summary.component';
+import { AccountsBarGraphComponent } from './common/accounts-bar-graph/accounts-bar-graph.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AccountSummaryComponent } from './common/account-summary/account-summar
     DashboardComponent,
     TransactionsComponent,
     AccountSummaryComponent,
+    AccountsBarGraphComponent,
   ],
   imports: [
     BrowserModule,
