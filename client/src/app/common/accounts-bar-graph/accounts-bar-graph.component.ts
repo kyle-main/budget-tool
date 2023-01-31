@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NetWorthService } from 'src/app/core/services/net-worth.service';
+import { DropdownValue } from '../dropdown/dropdown.component';
+
+enum Period {
+  MONTHLY = 'Monthly',
+  YEARLY = 'Yearly',
+}
 
 @Component({
   selector: 'app-accounts-bar-graph',
@@ -7,7 +13,19 @@ import { NetWorthService } from 'src/app/core/services/net-worth.service';
   styleUrls: ['./accounts-bar-graph.component.scss'],
 })
 export class AccountsBarGraphComponent implements OnInit {
-  constructor(private netWorthService: NetWorthService) {}
+  period: Period;
+  dropdownValues: DropdownValue[] = [
+    new DropdownValue('Monthly', 'Monthly'),
+    new DropdownValue('Yearly', 'Yearly'),
+  ];
+
+  constructor(private netWorthService: NetWorthService) {
+    this.period = Period.MONTHLY;
+  }
 
   ngOnInit(): void {}
+
+  action(event: any) {
+    console.log(event);
+  }
 }

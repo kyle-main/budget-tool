@@ -31,6 +31,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { AccountSummaryComponent } from './common/account-summary/account-summary.component';
 import { AccountsBarGraphComponent } from './common/accounts-bar-graph/accounts-bar-graph.component';
+import { DropdownComponent } from './common/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AccountsBarGraphComponent } from './common/accounts-bar-graph/accounts-
     TransactionsComponent,
     AccountSummaryComponent,
     AccountsBarGraphComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,
