@@ -11,22 +11,27 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-12 gap-2 h-64">
+  <div class="grid grid-cols-12 gap-2 h-64 outline-dashed outline-atom-500">
     <!-- y-axis -->
     <div
-      class="flex row-start-1 row-end-6 items-center justify-center bg-gray-200 rounded-md"
+      class="flex row-start-1 row-end-6 items-center justify-center bg-gray-200 dark:bg-atom-700 dark:text-neutral-200 rounded-md"
     >
       Y Axis
     </div>
     <!-- bar graph -->
     <div
-      class="flex row-start-1 row-end-6 col-start-2 col-end-13 items-center justify-center bg-gray-200 rounded-md"
+      class="row-start-1 row-end-6 col-start-2 col-end-13 bg-gray-200 dark:bg-atom-700 dark:text-neutral-200 rounded-md"
     >
-      Data
+      <div class="flex h-56 items-end justify-center">
+        <app-bar
+          [style.height]="item.size"
+          *ngFor="let item of this.data"
+        ></app-bar>
+      </div>
     </div>
     <!-- x-axis -->
     <div
-      class="flex col-start-2 col-end-13 items-center justify-center bg-gray-200 rounded-md"
+      class="flex col-start-2 col-end-13 items-center justify-center bg-gray-200 dark:bg-atom-700 dark:text-neutral-200 rounded-md"
     >
       X Axis
     </div>

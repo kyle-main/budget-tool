@@ -7,6 +7,21 @@ enum Period {
   YEARLY = 'Yearly',
 }
 
+let data = [
+  { size: '10%' },
+  { size: '50%' },
+  { size: '90%' },
+  { size: '10%' },
+  { size: '50%' },
+  { size: '90%' },
+  { size: '10%' },
+  { size: '50%' },
+  { size: '90%' },
+  { size: '10%' },
+  { size: '50%' },
+  { size: '90%' },
+];
+
 @Component({
   selector: 'app-accounts-bar-graph',
   templateUrl: './accounts-bar-graph.component.html',
@@ -14,6 +29,7 @@ enum Period {
 })
 export class AccountsBarGraphComponent implements OnInit {
   period: Period;
+  data: any;
   dropdownValues: DropdownValue[] = [
     new DropdownValue('Monthly', 'Monthly'),
     new DropdownValue('Yearly', 'Yearly'),
@@ -21,6 +37,7 @@ export class AccountsBarGraphComponent implements OnInit {
 
   constructor(private netWorthService: NetWorthService) {
     this.period = Period.MONTHLY;
+    this.data = data;
   }
 
   ngOnInit(): void {}

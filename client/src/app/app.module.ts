@@ -32,6 +32,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 import { AccountSummaryComponent } from './common/account-summary/account-summary.component';
 import { AccountsBarGraphComponent } from './common/accounts-bar-graph/accounts-bar-graph.component';
 import { DropdownComponent } from './common/dropdown/dropdown.component';
+import { BarComponent } from './common/accounts-bar-graph/bar/bar.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DropdownComponent } from './common/dropdown/dropdown.component';
     AccountSummaryComponent,
     AccountsBarGraphComponent,
     DropdownComponent,
+    BarComponent,
   ],
   imports: [
     BrowserModule,
