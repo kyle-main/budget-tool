@@ -11,12 +11,16 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-12 gap-2 h-64 outline-dashed outline-atom-500">
+  <div class="grid grid-cols-12 gap-2 outline-dashed outline-atom-500">
     <!-- y-axis -->
     <div
-      class="flex row-start-1 row-end-6 items-center justify-center bg-gray-200 dark:bg-atom-700 dark:text-neutral-200 rounded-md"
+      class="flex row-start-1 row-end-6 items-center justify-center text-sm bg-gray-200 text-gray-600 dark:bg-atom-700 dark:text-atom-300 rounded-md"
     >
-      Y Axis
+      <div class="flex flex-col justify-between h-full my-2">
+        <div *ngFor="let value of this.valueRange.reverse()">
+          {{ value | moneyFormatterSmall }}
+        </div>
+      </div>
     </div>
     <!-- bar graph -->
     <div

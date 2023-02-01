@@ -33,6 +33,7 @@ import { AccountSummaryComponent } from './common/account-summary/account-summar
 import { AccountsBarGraphComponent } from './common/accounts-bar-graph/accounts-bar-graph.component';
 import { DropdownComponent } from './common/dropdown/dropdown.component';
 import { BarComponent } from './common/accounts-bar-graph/bar/bar.component';
+import { MoneyFormatterSmallPipe } from './core/pipes/money-formatter-small.pipe';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BarComponent } from './common/accounts-bar-graph/bar/bar.component';
     AccountsBarGraphComponent,
     DropdownComponent,
     BarComponent,
+    MoneyFormatterSmallPipe,
   ],
   imports: [
     BrowserModule,
