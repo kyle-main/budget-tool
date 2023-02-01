@@ -18,9 +18,7 @@ const monthNames = [
 })
 export class DateShortPipe implements PipeTransform {
   transform(date: Date): string {
-    console.log(date);
     let shortMonth = monthNames[date.getMonth()].slice(0, 3);
-    console.log(date.getFullYear());
     let shortYear = date.getFullYear().toString().slice(2, 4) + "'";
     return shortMonth + ' ' + shortYear;
   }

@@ -56,12 +56,17 @@ export class AccountSummaryComponent implements OnInit {
   public gradient(): boolean {
     return !(
       this.colorScheme == ColorScheme.DARK ||
-      this.colorScheme == ColorScheme.LIGHT
+      this.colorScheme == ColorScheme.LIGHT ||
+      this.colorScheme == ColorScheme.MEDIA
     );
   }
 
   public dark(): boolean {
-    return this.colorScheme == ColorScheme.DARK;
+    let mediaColorScheme = localStorage.getItem('color-theme');
+    return (
+      mediaColorScheme == ColorScheme.DARK ||
+      this.colorScheme == ColorScheme.DARK
+    );
   }
 
   public isSavingsAccount(): boolean {

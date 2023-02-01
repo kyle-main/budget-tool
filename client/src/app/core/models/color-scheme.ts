@@ -4,4 +4,5 @@ export enum ColorScheme {
   GREEN_BLUE = 'green-blue',
   PURPLE_RED = 'purple-red',
   YELLOW_ORANGE = 'yellow-orange',
+  MEDIA = 'media',
 }

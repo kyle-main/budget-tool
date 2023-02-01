@@ -1,14 +1,17 @@
 <div
   class="relative min-w-full mt-5 p-2 bg-neutral-100 dark:bg-atom-800 rounded-lg"
 >
-  <div class="flex justify-end my-2">
+  <div class="flex items-center justify-between my-2">
+    <div
+      class="ml-2 text-2xl text-neutral-800 dark:text-atom-200 font-semibold font-"
+    >
+      Net Worth
+    </div>
     <div class="relative inline-block text-left">
-      <div>
-        <app-dropdown
-          [values]="dropdownValues"
-          (select)="action($event)"
-        ></app-dropdown>
-      </div>
+      <app-dropdown
+        [values]="dropdownValues"
+        (select)="action($event)"
+      ></app-dropdown>
     </div>
   </div>
   <div class="grid grid-cols-12 gap-2">
