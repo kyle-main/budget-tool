@@ -31,6 +31,7 @@ export class AccountsBarGraphComponent implements OnInit {
   period: Period;
   data: any;
   valueRange: any;
+  timeline: Date[];
   dropdownValues: DropdownValue[] = [
     new DropdownValue('Monthly', 'Monthly'),
     new DropdownValue('Yearly', 'Yearly'),
@@ -40,6 +41,20 @@ export class AccountsBarGraphComponent implements OnInit {
     this.period = Period.MONTHLY;
     this.data = data;
     this.valueRange = [10000, 20000, 30000, 40000, 50000];
+    this.timeline = [
+      new Date('2021-01-01'),
+      new Date('2021-02-01'),
+      new Date('2021-03-01'),
+      new Date('2021-04-01'),
+      new Date('2021-05-01'),
+      new Date('2021-06-01'),
+      new Date('2021-07-01'),
+      new Date('2021-08-01'),
+      new Date('2021-09-01'),
+      new Date('2021-10-01'),
+      new Date('2021-11-01'),
+      new Date('2021-12-01'),
+    ];
   }
 
   ngOnInit(): void {}

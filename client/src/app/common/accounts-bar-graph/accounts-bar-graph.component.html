@@ -11,10 +11,10 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-12 gap-2 outline-dashed outline-atom-500">
+  <div class="grid grid-cols-12 gap-2">
     <!-- y-axis -->
     <div
-      class="flex row-start-1 row-end-6 items-center justify-center text-sm bg-gray-200 text-gray-600 dark:bg-atom-700 dark:text-atom-300 rounded-md"
+      class="flex row-start-1 row-end-6 items-center justify-center text-sm text-gray-600 dark:text-atom-300 rounded-md"
     >
       <div class="flex flex-col justify-between h-full my-2">
         <div *ngFor="let value of this.valueRange.reverse()">
@@ -24,20 +24,23 @@
     </div>
     <!-- bar graph -->
     <div
-      class="row-start-1 row-end-6 col-start-2 col-end-13 bg-gray-200 dark:bg-atom-700 dark:text-neutral-200 rounded-md"
+      class="flex h-56 items-end row-start-1 row-end-6 col-start-2 col-end-13 text-gray-600 dark:text-atom-300 rounded-md"
     >
-      <div class="flex h-56 items-end justify-center">
-        <app-bar
-          [style.height]="item.size"
-          *ngFor="let item of this.data"
-        ></app-bar>
-      </div>
+      <app-bar
+        [style.height]="item.size"
+        *ngFor="let item of this.data"
+      ></app-bar>
     </div>
     <!-- x-axis -->
     <div
-      class="flex col-start-2 col-end-13 items-center justify-center bg-gray-200 dark:bg-atom-700 dark:text-neutral-200 rounded-md"
+      class="flex col-start-2 col-end-13 h-6 text-gray-600 dark:text-atom-300 rounded-md"
     >
-      X Axis
+      <div
+        class="flex justify-center items-center w-6 mx-4 text-sm whitespace-nowrap"
+        *ngFor="let x of timeline"
+      >
+        {{ x | dateShort }}
+      </div>
     </div>
   </div>
 </div>
