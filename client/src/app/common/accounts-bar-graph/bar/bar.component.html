@@ -1,3 +1,4 @@
 <div
-  class="inline-block bg-red-500 h-full rounded-md w-6 mx-4 shadow-md ring-1 ring-black ring-opacity-5"
+  class="inline-block bg-red-500 h-full rounded-md w-6 mx-4 shadow-md ring-1 ring-black ring-opacity-5 hover:brightness-75 dark:hover:opacity-80"
+  [ngClass]="[blue() ? 'bg-blue-400' : '', lightBlue() ? 'bg-blue-300' : '']"
 ></div>

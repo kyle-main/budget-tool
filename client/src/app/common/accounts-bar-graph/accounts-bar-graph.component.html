@@ -28,6 +28,7 @@
     >
       <app-bar
         [style.height]="item.size"
+        [color]="nextColor()"
         *ngFor="let item of this.data"
       ></app-bar>
     </div>

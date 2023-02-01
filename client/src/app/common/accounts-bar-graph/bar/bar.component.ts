@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BarComponent implements OnInit {
   @Input() height: number;
+  @Input() color: string;
 
   constructor() {}
 
@@ -14,5 +15,13 @@ export class BarComponent implements OnInit {
 
   heightBetween(min: number, max: number): boolean {
     return this.height > min && this.height <= max;
+  }
+
+  blue() {
+    return this.color === 'blue';
+  }
+
+  lightBlue() {
+    return this.color === 'light-blue';
   }
 }
