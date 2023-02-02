@@ -4,6 +4,7 @@ import { DropdownValue } from '../dropdown/dropdown.component';
 
 enum Period {
   MONTHLY = 'Monthly',
+  QUARTERLY = 'Quarterly',
   YEARLY = 'Yearly',
 }
 
@@ -37,27 +38,28 @@ export class AccountsBarGraphComponent implements OnInit {
   currentColor: number;
   dropdownValues: DropdownValue[] = [
     new DropdownValue('Monthly', 'Monthly'),
+    new DropdownValue('Quarterly', 'Quarterly'),
     new DropdownValue('Yearly', 'Yearly'),
   ];
 
   constructor(private netWorthService: NetWorthService) {
     this.period = Period.MONTHLY;
     this.data = data;
-    this.valueRange = [10000, 20000, 30000, 40000, 50000];
+    this.valueRange = [100000, 200000, 300000, 400000, 500000].reverse();
     this.currentColor = 0;
     this.timeline = [
-      new Date('2021-01-01'),
-      new Date('2021-02-01'),
-      new Date('2021-03-01'),
-      new Date('2021-04-01'),
-      new Date('2021-05-01'),
-      new Date('2021-06-01'),
-      new Date('2021-07-01'),
-      new Date('2021-08-01'),
-      new Date('2021-09-01'),
-      new Date('2021-10-01'),
-      new Date('2021-11-01'),
-      new Date('2021-12-01'),
+      new Date(2021, 0, 1),
+      new Date(2021, 1, 1),
+      new Date(2021, 2, 1),
+      new Date(2021, 3, 1),
+      new Date(2021, 4, 1),
+      new Date(2021, 5, 1),
+      new Date(2021, 6, 1),
+      new Date(2021, 7, 1),
+      new Date(2021, 8, 1),
+      new Date(2021, 9, 1),
+      new Date(2021, 10, 1),
+      new Date(2021, 11, 1),
     ];
   }
 

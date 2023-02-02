@@ -19,8 +19,8 @@
     <div
       class="flex row-start-1 row-end-6 items-center justify-center text-sm text-gray-600 dark:text-atom-300 rounded-md"
     >
-      <div class="flex flex-col justify-between h-full my-2">
-        <div *ngFor="let value of this.valueRange.reverse()">
+      <div class="flex flex-col justify-between h-full my-2 whitespace-nowrap">
+        <div *ngFor="let value of this.valueRange">
           {{ value | moneyFormatterSmall }}
         </div>
       </div>
