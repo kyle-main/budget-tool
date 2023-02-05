@@ -1,38 +1,37 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 export class DropdownValue {
   value: string;
   label: string;
+  color: string | null;
 
-  constructor(value: string, label: string) {
+  constructor(value: string, label: string, color?: string) {
     this.value = value;
     this.label = label;
+    this.color = color ? color : null;
   }
 }
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function (event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName('dropdown-content');
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-};
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
+  host: { '(document:click)': 'handleClick($event)' },
 })
 export class DropdownComponent implements OnInit {
   @Input() values: DropdownValue[];
   @Output() select: EventEmitter<any>;
+  @ViewChild('mydropdown') private mydropdown: ElementRef;
   current: DropdownValue;
+  showDropdown: boolean;
 
   constructor() {
     this.select = new EventEmitter();
@@ -43,11 +42,21 @@ export class DropdownComponent implements OnInit {
   }
 
   selectItem(value) {
+    console.log('selectItem');
     this.current = value;
     this.select.emit(value.label);
   }
 
+  handleClick(event) {
+    if (this.showDropdown) {
+      let clickedComponent = event.target;
+      if (clickedComponent !== this.mydropdown.nativeElement) {
+        this.showDropdown = false;
+      }
+    }
+  }
+
   toggleDropdown() {
-    document.getElementById('myDropdown').classList.toggle('show');
+    this.showDropdown = this.showDropdown === true ? false : true;
   }
 }

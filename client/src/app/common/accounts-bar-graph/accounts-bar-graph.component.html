@@ -7,11 +7,19 @@
     >
       Net Worth
     </div>
-    <div class="relative inline-block text-left">
-      <app-dropdown
-        [values]="dropdownValues"
-        (select)="action($event)"
-      ></app-dropdown>
+    <div>
+      <div class="relative inline-block text-left mr-1">
+        <app-dropdown
+          [values]="colorDropdownValues"
+          (select)="setColor($event)"
+        ></app-dropdown>
+      </div>
+      <div class="relative inline-block text-left">
+        <app-dropdown
+          [values]="periodDropdownValues"
+          (select)="action($event)"
+        ></app-dropdown>
+      </div>
     </div>
   </div>
   <div class="grid grid-cols-12 gap-2">
@@ -32,7 +40,8 @@
       <app-bar
         [style.height]="item.size"
         [color]="nextColor()"
-        *ngFor="let item of this.data"
+        [value]="getValue(item.size)"
+        *ngFor="let item of this.data_old"
       ></app-bar>
     </div>
     <!-- x-axis -->

@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BarComponent implements OnInit {
   @Input() color: string;
+  @Input() value: number;
 
   constructor() {}
 

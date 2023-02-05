@@ -89,7 +89,7 @@ def get_networth():
         print('Improper input values')
         return 'Input syntax error', 400
     values = networth_sheet.get_data()
-    return str(values)
+    return json.dumps(values)
 
 
 @app.route('/dashboards/', methods=['GET'])

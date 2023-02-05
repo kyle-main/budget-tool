@@ -47,7 +47,7 @@ class Sheet:
         self.sheet = self.service.spreadsheets()
         os.chdir('../')
 
-    def unicode_normalize_2d_list(list: list) -> list:
+    def unicode_normalize_2d_list(self, list: list) -> list:
         for i, row in enumerate(list):
             for j, element in enumerate(row):
                 list[i][j] = unicodedata.normalize('NFKC', element)

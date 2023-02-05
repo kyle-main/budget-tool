@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // let netWorth = this.netWorthService.getNetWorth();
-    // console.log(netWorth);
+    let netWorthData = this.netWorthService.getNetWorth();
+    console.log(netWorthData);
   }
 }

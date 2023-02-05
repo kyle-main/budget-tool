@@ -1,4 +1,12 @@
 <div
-  class="inline-block bg-red-500 h-full rounded-md w-6 mx-4 shadow-md ring-1 ring-black ring-opacity-5 hover:brightness-75 dark:hover:opacity-80"
+  id="bar"
+  class="group relative flex justify-center items-center opacity-100 h-full rounded-md w-6 mx-4 shadow-md ring-1 ring-black ring-opacity-5"
   [ngClass]="[blue() ? 'bg-blue-400' : '', lightBlue() ? 'bg-blue-300' : '']"
-></div>
+>
+  <div
+    id="tooltip"
+    class="pointer-events-none absolute z-10 px-2 py-1 -top-10 w-max bg-neutral-200 dark:bg-atom-600 opacity-0 transition-opacity group-hover:opacity-100 rounded-md"
+  >
+    {{ this.value | moneyFormatter }}
+  </div>
+</div>
