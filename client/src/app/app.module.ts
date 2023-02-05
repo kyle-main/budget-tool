@@ -35,6 +35,8 @@ import { DropdownComponent } from './common/dropdown/dropdown.component';
 import { BarComponent } from './common/accounts-bar-graph/bar/bar.component';
 import { MoneyFormatterSmallPipe } from './core/pipes/money-formatter-small.pipe';
 import { DateShortPipe } from './core/pipes/date-short.pipe';
+import { DateQuarterPipe } from './core/pipes/date-quarter.pipe';
+import { DateYearPipe } from './core/pipes/date-year.pipe';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { DateShortPipe } from './core/pipes/date-short.pipe';
     BarComponent,
     MoneyFormatterSmallPipe,
     DateShortPipe,
+    DateQuarterPipe,
+    DateYearPipe,
   ],
   imports: [
     BrowserModule,

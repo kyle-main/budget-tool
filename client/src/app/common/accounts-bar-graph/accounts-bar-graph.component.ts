@@ -73,6 +73,16 @@ export class AccountsBarGraphComponent implements OnInit {
     return color;
   }
 
+  monthly(): boolean {
+    return this.period === Period.MONTHLY;
+  }
+  quarterly(): boolean {
+    return this.period === Period.QUARTERLY;
+  }
+  yearly(): boolean {
+    return this.period === Period.YEARLY;
+  }
+
   setColor(event: string): void {
     this.color = event;
   }

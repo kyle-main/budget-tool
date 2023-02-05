@@ -52,7 +52,15 @@
         class="flex justify-center items-center w-6 mx-4 text-sm whitespace-nowrap"
         *ngFor="let x of timeline"
       >
-        {{ x | dateShort }}
+        <div *ngIf="this.monthly()">
+          {{ x | dateShort }}
+        </div>
+        <div *ngIf="this.quarterly()">
+          {{ x | dateQuarter }}
+        </div>
+        <div *ngIf="this.yearly()">
+          {{ x | dateYear }}
+        </div>
       </div>
     </div>
   </div>
