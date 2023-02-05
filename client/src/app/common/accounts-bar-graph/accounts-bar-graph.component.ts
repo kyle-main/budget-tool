@@ -63,7 +63,6 @@ export class AccountsBarGraphComponent implements OnInit {
   ngOnInit(): void {}
 
   action(event: Period) {
-    console.log('action');
     this.period = event;
     this.setTimeline(this.period);
   }
