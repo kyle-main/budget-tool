@@ -26,7 +26,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { TransactionAccordionComponent } from './common/transaction-accordion/transaction-accordion.component';
 import { MoneyFormatterPipe } from './core/pipes/money-formatter.pipe';
-import { DateFormatterPipe } from './core/pipes/date-formatter.pipe';
+import { DateFormatterPipe } from './core/pipes/dates/date-formatter.pipe';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { AccountSummaryComponent } from './common/account-summary/account-summary.component';
@@ -34,9 +34,9 @@ import { AccountsBarGraphComponent } from './common/accounts-bar-graph/accounts-
 import { DropdownComponent } from './common/dropdown/dropdown.component';
 import { BarComponent } from './common/accounts-bar-graph/bar/bar.component';
 import { MoneyFormatterSmallPipe } from './core/pipes/money-formatter-small.pipe';
-import { DateShortPipe } from './core/pipes/date-short.pipe';
-import { DateQuarterPipe } from './core/pipes/date-quarter.pipe';
-import { DateYearPipe } from './core/pipes/date-year.pipe';
+import { DateShortPipe } from './core/pipes/dates/date-short.pipe';
+import { DateQuarterPipe } from './core/pipes/dates/date-quarter.pipe';
+import { DateYearPipe } from './core/pipes/dates/date-year.pipe';
 
 @NgModule({
   declarations: [

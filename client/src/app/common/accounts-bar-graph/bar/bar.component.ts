@@ -13,11 +13,7 @@ export class BarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  blue() {
-    return this.color === 'blue';
-  }
-
-  lightBlue() {
-    return this.color === 'light-blue';
+  isColor(x: string) {
+    return this.color === x;
   }
 }

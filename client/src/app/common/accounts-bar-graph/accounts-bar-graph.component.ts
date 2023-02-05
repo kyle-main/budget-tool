@@ -24,8 +24,6 @@ let data = [
   { size: '83%' },
 ];
 
-let colors = ['blue', 'light-blue'];
-
 @Component({
   selector: 'app-accounts-bar-graph',
   templateUrl: './accounts-bar-graph.component.html',
@@ -38,7 +36,7 @@ export class AccountsBarGraphComponent implements OnInit {
   data_old: any;
   valueRange: number[];
   timeline: Date[];
-  currentColor: number;
+  lightColorCounter: number;
   periodDropdownValues: DropdownValue[] = [
     new DropdownValue('Monthly', 'Monthly'),
     new DropdownValue('Quarterly', 'Quarterly'),
@@ -56,7 +54,8 @@ export class AccountsBarGraphComponent implements OnInit {
     this.period = Period.MONTHLY;
     this.data_old = data;
     this.valueRange = [100000, 200000, 300000, 400000, 500000].reverse();
-    this.currentColor = 0;
+    this.color = 'blue';
+    this.lightColorCounter = 0;
     this.setTimeline(Period.MONTHLY);
   }
 
@@ -68,8 +67,11 @@ export class AccountsBarGraphComponent implements OnInit {
   }
 
   nextColor(): any {
-    let color = colors[this.currentColor];
-    this.currentColor = (this.currentColor + 1) % colors.length;
+    let color = this.color;
+    if (this.lightColorCounter % 2 == 1) {
+      color = 'light-' + color;
+    }
+    this.lightColorCounter++;
     return color;
   }
 
@@ -84,7 +86,7 @@ export class AccountsBarGraphComponent implements OnInit {
   }
 
   setColor(event: string): void {
-    this.color = event;
+    this.color = event.toLowerCase();
   }
 
   getValue(percent: string): number {
