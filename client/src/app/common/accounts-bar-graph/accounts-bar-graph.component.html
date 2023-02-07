@@ -11,13 +11,15 @@
       <div class="relative inline-block text-left mr-1">
         <app-dropdown
           [values]="colorDropdownValues"
-          (select)="setColor($event)"
+          [identifier]="'color-dropdown'"
+          (currentSelectionChange)="setColor($event)"
         ></app-dropdown>
       </div>
       <div class="relative inline-block text-left">
         <app-dropdown
           [values]="periodDropdownValues"
-          (select)="action($event)"
+          [identifier]="'period-dropdown'"
+          (currentSelectionChange)="action($event)"
         ></app-dropdown>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { List } from 'postcss/lib/list';
 import { NetWorthService } from 'src/app/core/services/net-worth.service';
 import { DropdownValue } from '../dropdown/dropdown.component';
 
@@ -38,28 +37,28 @@ export class AccountsBarGraphComponent implements OnInit {
   timeline: Date[];
   lightColorCounter: number;
   periodDropdownValues: DropdownValue[] = [
-    new DropdownValue('Monthly', 'Monthly'),
-    new DropdownValue('Quarterly', 'Quarterly'),
-    new DropdownValue('Yearly', 'Yearly'),
+    new DropdownValue('monthly', 'Monthly'),
+    new DropdownValue('quarterly', 'Quarterly'),
+    new DropdownValue('yearly', 'Yearly'),
   ];
   colorDropdownValues: DropdownValue[] = [
-    new DropdownValue('Blue', 'Blue', 'blue'),
-    new DropdownValue('Yellow', 'Yellow', 'yellow'),
-    new DropdownValue('Red', 'Red', 'red'),
-    new DropdownValue('Green', 'Green', 'green'),
-    new DropdownValue('Purple', 'Purple', 'purple'),
+    new DropdownValue('blue', 'Blue', 'blue'),
+    new DropdownValue('yellow', 'Yellow', 'yellow'),
+    new DropdownValue('red', 'Red', 'red'),
+    new DropdownValue('green', 'Green', 'green'),
+    new DropdownValue('purple', 'Purple', 'purple'),
   ];
 
-  constructor(private netWorthService: NetWorthService) {
-    this.period = Period.MONTHLY;
+  constructor(private netWorthService: NetWorthService) {}
+
+  ngOnInit(): void {
+    this.period = this.getCurrentPeriod();
     this.data_old = data;
     this.valueRange = [100000, 200000, 300000, 400000, 500000].reverse();
-    this.color = 'blue';
+    this.color = this.getCurrentColorAsString();
     this.lightColorCounter = 0;
     this.setTimeline(Period.MONTHLY);
   }
-
-  ngOnInit(): void {}
 
   action(event: Period) {
     this.period = event;
@@ -87,11 +86,42 @@ export class AccountsBarGraphComponent implements OnInit {
 
   setColor(event: string): void {
     this.color = event.toLowerCase();
+    localStorage.setItem('accent-color', this.color);
+  }
+
+  getCurrentColorAsString(): string {
+    let accentColor = localStorage.getItem('accent-color');
+    if (accentColor) {
+      this.color = accentColor;
+    } else {
+      localStorage.setItem('accent-color', this.color);
+    }
+    return this.color;
+  }
+
+  getCurrentPeriod(): Period {
+    let period = localStorage.getItem('period');
+    if (period) {
+      this.period = Period[period];
+    } else {
+      localStorage.setItem('period', this.period);
+    }
+    return this.period;
   }
 
   getValue(percent: string): number {
     let n = parseFloat(percent.slice(0, -1));
     return n * this.valueRange[0];
+  }
+
+  test() {
+    let currentColor = this.getCurrentColorAsString();
+    this.colorDropdownValues.forEach((color) => {
+      if (color.value === currentColor) {
+        console.log('test() returns: ' + color.value);
+        return color;
+      }
+    });
   }
 
   setTimeline(period: Period) {

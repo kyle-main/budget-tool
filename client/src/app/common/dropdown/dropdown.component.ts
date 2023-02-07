@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export class DropdownValue {
   value: string;
@@ -27,23 +28,34 @@ export class DropdownValue {
   host: { '(document:click)': 'handleClick($event)' },
 })
 export class DropdownComponent implements OnInit {
-  @Input() values: DropdownValue[];
-  @Output() select: EventEmitter<any>;
+  @Input() values: DropdownValue[] = [];
+  @Input() identifier: string;
+  @Output() currentSelectionChange: EventEmitter<any>;
   @ViewChild('mydropdown') private mydropdown: ElementRef;
-  current: DropdownValue;
   showDropdown: boolean;
+  currentSelection: BehaviorSubject<DropdownValue> =
+    new BehaviorSubject<DropdownValue>(this.values[0]);
 
   constructor() {
-    this.select = new EventEmitter();
+    this.currentSelectionChange = new EventEmitter();
   }
 
   ngOnInit(): void {
-    this.current = this.values[0];
+    const storedValue = localStorage.getItem(this.identifier);
+    if (storedValue) {
+      this.currentSelection.next(this.getDropdownValueWithValue(storedValue));
+    } else {
+      this.currentSelection.next(this.values[0]);
+    }
+    this.currentSelection.subscribe((value) => {
+      localStorage.setItem(this.identifier, value.value);
+    });
+    this.selectItem(this.currentSelection.getValue());
   }
 
-  selectItem(value) {
-    this.current = value;
-    this.select.emit(value.label);
+  selectItem(value: DropdownValue) {
+    this.currentSelection.next(value);
+    this.currentSelectionChange.emit(value.label);
   }
 
   handleClick(event) {
@@ -57,5 +69,16 @@ export class DropdownComponent implements OnInit {
 
   toggleDropdown() {
     this.showDropdown = this.showDropdown === true ? false : true;
+  }
+
+  getDropdownValueWithValue(value: string): DropdownValue {
+    let x: DropdownValue = this.values[0];
+    this.values.forEach((dropdownValue) => {
+      let val = dropdownValue.value;
+      if (val === value) {
+        x = dropdownValue;
+      }
+    });
+    return x;
   }
 }

@@ -6,16 +6,16 @@
 >
   <span
     class="h-2 w-2 mr-2 rounded-full inline-block"
-    *ngIf="this.current.color"
+    *ngIf="this.currentSelection.getValue().color"
     [ngClass]="[
-      this.current.color == 'blue' ? 'bg-blue-500' : '',
-      this.current.color == 'yellow' ? 'bg-amber-400' : '',
-      this.current.color == 'red' ? 'bg-red-500' : '',
-      this.current.color == 'green' ? 'bg-emerald-400' : '',
-      this.current.color == 'purple' ? 'bg-violet-500' : ''
+      this.currentSelection.getValue().color == 'blue' ? 'bg-blue-500' : '',
+      this.currentSelection.getValue().color == 'yellow' ? 'bg-amber-400' : '',
+      this.currentSelection.getValue().color == 'red' ? 'bg-red-500' : '',
+      this.currentSelection.getValue().color == 'green' ? 'bg-green-400' : '',
+      this.currentSelection.getValue().color == 'purple' ? 'bg-violet-500' : ''
     ]"
   ></span>
-  {{ this.current.label }}
+  {{ this.currentSelection.getValue().label }}
   <!-- Heroicon name: mini/chevron-down -->
   <svg
     class="dropbtn -mr-1 ml-2 h-5 w-5 pointer-events-none"
@@ -41,12 +41,12 @@
   >
     <span
       class="h-2 w-2 mr-2 rounded-full inline-block"
-      *ngIf="this.current.color"
+      *ngIf="this.currentSelection.getValue().color"
       [ngClass]="[
         this.value.color == 'blue' ? 'bg-blue-500' : '',
         this.value.color == 'yellow' ? 'bg-amber-400' : '',
         this.value.color == 'red' ? 'bg-red-500' : '',
-        this.value.color == 'green' ? 'bg-emerald-500' : '',
+        this.value.color == 'green' ? 'bg-green-400' : '',
         this.value.color == 'purple' ? 'bg-violet-500' : ''
       ]"
     ></span>
