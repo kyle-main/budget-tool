@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MoneyFormatterPipe implements PipeTransform {
   transform(number: number): string {
     let prefix = number < 0 ? '-$' : '$';
-    let formattedString = prefix + Math.abs(number);
-    return formattedString;
+    let absNumber = Math.abs(number);
+    return prefix + absNumber.toLocaleString();
   }
 }
