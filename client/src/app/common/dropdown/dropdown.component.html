@@ -1,0 +1,55 @@
+<button
+  type="button"
+  class="dropbtn relative inline-flex w-full justify-center items-center rounded-md border pr-4 pl-3 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 border-gray-300 bg-white dark:border-atom-500 dark:bg-atom-700 text-gray-700 dark:text-gray-200 hover:text-atom-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-atom-600 focus:ring-gray-200 dark:focus:ring-atom-500"
+  #mydropdown
+  (click)="toggleDropdown()"
+>
+  <span
+    class="h-2 w-2 mr-2 rounded-full inline-block"
+    *ngIf="this.currentSelection.getValue().color"
+    [ngClass]="[
+      this.currentSelection.getValue().color == 'blue' ? 'bg-blue-500' : '',
+      this.currentSelection.getValue().color == 'yellow' ? 'bg-amber-400' : '',
+      this.currentSelection.getValue().color == 'red' ? 'bg-red-500' : '',
+      this.currentSelection.getValue().color == 'green' ? 'bg-green-400' : '',
+      this.currentSelection.getValue().color == 'purple' ? 'bg-violet-500' : ''
+    ]"
+  ></span>
+  {{ this.currentSelection.getValue().label }}
+  <!-- Heroicon name: mini/chevron-down -->
+  <svg
+    class="dropbtn -mr-1 ml-2 h-5 w-5 pointer-events-none"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+      clip-rule="evenodd"
+    />
+  </svg>
+</button>
+<div
+  class="absolute right-0 top-9 z-30 mt-2 w-32 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-white dark:border-atom-500 dark:bg-atom-700 text-gray-700 dark:text-gray-200"
+  *ngIf="this.showDropdown"
+>
+  <button
+    class="block px-4 py-2 w-full hover:bg-gray-50 hover:text-atom-900 dark:hover:bg-atom-600 dark:hover:text-gray-100 text-sm text-justify rounded-md"
+    *ngFor="let value of values"
+    (click)="selectItem(value)"
+  >
+    <span
+      class="h-2 w-2 mr-2 rounded-full inline-block"
+      *ngIf="this.currentSelection.getValue().color"
+      [ngClass]="[
+        this.value.color == 'blue' ? 'bg-blue-500' : '',
+        this.value.color == 'yellow' ? 'bg-amber-400' : '',
+        this.value.color == 'red' ? 'bg-red-500' : '',
+        this.value.color == 'green' ? 'bg-green-400' : '',
+        this.value.color == 'purple' ? 'bg-violet-500' : ''
+      ]"
+    ></span>
+    {{ value.label }}
+  </button>
+</div>

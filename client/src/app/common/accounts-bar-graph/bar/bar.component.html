@@ -1,0 +1,23 @@
+<div
+  id="bar"
+  class="group relative flex justify-center items-center opacity-100 h-full rounded-md w-6 mx-4 shadow-md ring-1 ring-black ring-opacity-5"
+  [ngClass]="[
+    isColor('blue') ? 'bg-blue-400' : '',
+    isColor('light-blue') ? 'bg-blue-300' : '',
+    isColor('yellow') ? 'bg-amber-300' : '',
+    isColor('light-yellow') ? 'bg-amber-200' : '',
+    isColor('red') ? 'bg-red-500' : '',
+    isColor('light-red') ? 'bg-red-400' : '',
+    isColor('green') ? 'bg-green-400' : '',
+    isColor('light-green') ? 'bg-green-300' : '',
+    isColor('purple') ? 'bg-violet-400' : '',
+    isColor('light-purple') ? 'bg-violet-300' : ''
+  ]"
+>
+  <div
+    id="tooltip"
+    class="pointer-events-none absolute z-10 px-2 py-1 -top-10 w-max bg-neutral-200 dark:bg-atom-600 opacity-0 transition-opacity group-hover:opacity-100 rounded-md"
+  >
+    {{ this.value | moneyFormatter }}
+  </div>
+</div>
