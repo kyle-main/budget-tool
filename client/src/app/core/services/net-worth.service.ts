@@ -21,8 +21,8 @@ export class NetWorthService extends SheetService {
     return this.http
       .get(URL, this.getHttpOptions())
       .toPromise()
-      .then((data) => {
-        return data;
+      .then((data: string) => {
+        return JSON.parse(data);
       })
       .catch((error) => {
         this.handleError(error);

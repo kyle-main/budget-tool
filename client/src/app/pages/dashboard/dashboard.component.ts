@@ -11,13 +11,20 @@ import { NetWorthService } from 'src/app/core/services/net-worth.service';
 export class DashboardComponent implements OnInit {
   colorScheme: typeof ColorScheme;
   account: typeof Account;
+  netWorthData;
   constructor(private netWorthService: NetWorthService) {
     this.colorScheme = ColorScheme;
     this.account = Account;
   }
 
-  ngOnInit(): void {
-    let netWorthData = this.netWorthService.getNetWorth();
-    console.log(netWorthData);
+  ngOnInit() {
+    this.netWorthService
+      .getNetWorth()
+      .then((res) => {
+        this.netWorthData = res;
+      })
+      .catch((err) => {
+        console.log("counldn't get networth from service");
+      });
   }
 }

@@ -8,7 +8,7 @@ enum Period {
   YEARLY = 'Yearly',
 }
 
-let data = [
+let temp_data = [
   { size: '10%' },
   { size: '25%' },
   { size: '23%' },
@@ -29,7 +29,7 @@ let data = [
   styleUrls: ['./accounts-bar-graph.component.scss'],
 })
 export class AccountsBarGraphComponent implements OnInit {
-  @Input() data: any;
+  @Input() rawData: any[];
   color: string;
   period: Period;
   data_old: any;
@@ -49,15 +49,20 @@ export class AccountsBarGraphComponent implements OnInit {
     new DropdownValue('purple', 'Purple', 'purple'),
   ];
 
-  constructor(private netWorthService: NetWorthService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.period = this.getCurrentPeriod();
-    this.data_old = data;
+    this.data_old = temp_data;
     this.valueRange = [100000, 200000, 300000, 400000, 500000].reverse();
     this.color = this.getCurrentColorAsString();
     this.lightColorCounter = 0;
     this.setTimeline(Period.MONTHLY);
+  }
+
+  ngOnChanges(): void {
+    console.log('ngOnChanges() called');
+    console.log(this.rawData);
   }
 
   action(event: Period) {
@@ -112,16 +117,6 @@ export class AccountsBarGraphComponent implements OnInit {
   getValue(percent: string): number {
     let n = parseFloat(percent.slice(0, -1));
     return n * this.valueRange[0];
-  }
-
-  test() {
-    let currentColor = this.getCurrentColorAsString();
-    this.colorDropdownValues.forEach((color) => {
-      if (color.value === currentColor) {
-        console.log('test() returns: ' + color.value);
-        return color;
-      }
-    });
   }
 
   setTimeline(period: Period) {
