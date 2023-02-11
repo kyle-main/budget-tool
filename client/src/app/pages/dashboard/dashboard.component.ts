@@ -17,14 +17,9 @@ export class DashboardComponent implements OnInit {
     this.account = Account;
   }
 
-  ngOnInit() {
-    this.netWorthService
-      .getNetWorth()
-      .then((res) => {
-        this.netWorthData = res;
-      })
-      .catch((err) => {
-        console.log("counldn't get networth from service");
-      });
+  ngOnInit() {}
+
+  async getData(dates: Date[]) {
+    this.netWorthData = await this.netWorthService.getNetWorthWithDates(dates);
   }
 }

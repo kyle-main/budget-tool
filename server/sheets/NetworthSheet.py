@@ -1,11 +1,17 @@
 import os
-import unicodedata
+import time
+import logging
+from typing import Tuple
 from .Sheet import Sheet
+from models.networth import Networth
 from dotenv import load_dotenv
 load_dotenv()
 
 NETWORTH_SPREADSHEET_ID = os.getenv('NETWORTH_SPREADSHEET_ID')
-NETWORTH_SHEET_RANGE = 'Net Worth!B3:X'
+NETWORTH_SHEET_RANGE = 'Net Worth!B3:X68'
+
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.WARNING)
+logger = logging.getLogger(__name__)
 
 
 class NetworthSheet(Sheet):
@@ -13,68 +19,59 @@ class NetworthSheet(Sheet):
 
     def __init__(self):
         super().__init__()
+        self.data: list = []
+        self.locked: bool = False
 
-    def add_record(self, value: list) -> None:
-        return None
+    def get_all_data(self) -> list:
+        """ Get all the networth records from the spread sheet and cache them """
+        if not self.data:
+            if self.locked:
+                logger.info('data locked! waiting...')
+                time.sleep(1)
+                return self.get_all_data()
+            self.locked = True
+            logger.info('no cached data. fetching from google sheets')
+            # because this operation can take some time,
+            # we must use a lock to prevent calling the api simultaniously
+            result = self.sheet.values().get(spreadsheetId=NETWORTH_SPREADSHEET_ID,
+                                             range=NETWORTH_SHEET_RANGE).execute()
+            values = self.unicode_normalize_2d_list(result.get('values', []))
+            self.data = values
+            self.locked = False
+        logger.info('data cached.')
+        return self.data
 
-    def get_data(self) -> dict:
+    def get_data(self, month: int, year: int) -> dict:
         """ Get all the values from our spread sheet in a range """
-        result = self.sheet.values().get(spreadsheetId=NETWORTH_SPREADSHEET_ID,
-                                         range=NETWORTH_SHEET_RANGE).execute()
-        res = []
-        values = self.unicode_normalize_2d_list(result.get('values', []))
-        for i, rec in enumerate(values):
-            x = {}
-            if len(rec) >= 23:
-                # TODO: impl networth record data class to handle this functionality more cleanly
-                x['date'] = rec[0]
-                x['net_worth'] = rec[1]
-                x['net_worth_delta'] = rec[2]
-                x['assets'] = rec[4]
-                x['assets_delta'] = rec[5]
-                x['checking'] = rec[6]
-                x['savings'] = rec[7]
-                x['hsa'] = rec[8]
-                x['401k_w_match'] = rec[9]
-                x['401k_vested_difference'] = rec[10]
-                x['401k_vested'] = rec[11]
-                x['ira'] = rec[12]
-                x['stocks'] = rec[13]
-                x['debt'] = rec[15]
-                x['debt_delta'] = rec[16]
-                x['apple_credit'] = rec[17]
-                x['chase_credit'] = rec[18]
-                x['citi_credit'] = rec[19]
-                x['secu_credit'] = rec[20]
-                x['student_loans'] = rec[21]
-                x['car_loan'] = rec[22]
-                x = {k: self.financial_string_to_decimal(
-                    v) for (k, v) in x.items()}
-                res.append(x)
+        data = self.get_all_data()
+        res = {}
+        for i, rec in enumerate(data):
+            if self.dates_match(rec[0], (month, year)):
+                print(rec[0])
+                nw = Networth(rec)
+                res = nw.to_dict()
+                print(res)
+
         return res
 
-    def financial_string_to_decimal(self, s: str):
-        import re
-
-        # If the string contains letters leave it alone
-        if any(char.isalpha() for char in s):
-            return s
-
-        # Check if the string starts with a parenthesis
-        negative = False
-        if s[0] == "(":
-            negative = True
-            s = s[1:-1]
-
-        # Remove the comma separators
-        s = re.sub(",", "", s)
-
-        # Convert the string to a decimal number
-        number = float(s)
-
-        # Make the number negative if needed
-        if negative:
-            number = -number
-
-        # Return the number with 2 decimal places
-        return str(round(number, 2))
+    def dates_match(self, date: str, date_values: Tuple[int, int]) -> bool:
+        match = False
+        months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ]
+        month, year = date_values
+        str_month, str_year = date.split(', ')
+        if (months[month] == str_month) and (str(year) == str_year):
+            match = True
+        return match

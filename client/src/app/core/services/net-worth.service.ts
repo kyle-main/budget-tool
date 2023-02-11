@@ -16,16 +16,32 @@ export class NetWorthService extends SheetService {
     super(http, snackBar);
   }
 
-  public getNetWorth(): Promise<any> {
+  public async getNetWorth(month: number, year: number): Promise<any> {
     let URL = this.url + 'networth/get';
-    return this.http
-      .get(URL, this.getHttpOptions())
-      .toPromise()
-      .then((data: string) => {
-        return JSON.parse(data);
-      })
-      .catch((error) => {
-        this.handleError(error);
-      });
+    try {
+      const data = await this.http
+        .get(
+          URL,
+          this.getHttpOptions({
+            month: month,
+            year: year,
+          })
+        )
+        .toPromise();
+      return data;
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  public async getNetWorthWithDates(dates: Date[]): Promise<any[]> {
+    let res = [];
+    dates.forEach(async (date) => {
+      let month = date.getMonth();
+      let year = date.getFullYear();
+      let data = await this.getNetWorth(month, year);
+      res.push(data);
+    });
+    return res;
   }
 }

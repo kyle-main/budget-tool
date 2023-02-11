@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NetWorthService } from 'src/app/core/services/net-worth.service';
 import { DropdownValue } from '../dropdown/dropdown.component';
 
@@ -30,6 +30,7 @@ let temp_data = [
 })
 export class AccountsBarGraphComponent implements OnInit {
   @Input() rawData: any[];
+  @Output() periodChange: EventEmitter<any>;
   color: string;
   period: Period;
   data_old: any;
@@ -49,20 +50,19 @@ export class AccountsBarGraphComponent implements OnInit {
     new DropdownValue('purple', 'Purple', 'purple'),
   ];
 
-  constructor() {}
+  constructor() {
+    this.periodChange = new EventEmitter();
+  }
 
   ngOnInit(): void {
     this.period = this.getCurrentPeriod();
     this.data_old = temp_data;
-    this.valueRange = [100000, 200000, 300000, 400000, 500000].reverse();
     this.color = this.getCurrentColorAsString();
     this.lightColorCounter = 0;
-    this.setTimeline(Period.MONTHLY);
   }
 
   ngOnChanges(): void {
-    console.log('ngOnChanges() called');
-    console.log(this.rawData);
+    this.valueRange = this.setValueRange();
   }
 
   action(event: Period) {
@@ -119,56 +119,102 @@ export class AccountsBarGraphComponent implements OnInit {
     return n * this.valueRange[0];
   }
 
+  setValueRange() {
+    console.log('setValueRange()');
+    console.log(this.timeline);
+    console.log(this.rawData);
+    if (this.timeline) {
+      console.log('test');
+      let min = NaN;
+      let max = NaN;
+      console.log(this.rawData.length);
+      for (let i = 0; i < this.rawData.length; i++) {
+        console.log('another test');
+        console.log(i);
+      }
+    }
+    return [100000, 200000, 300000, 400000, 500000].reverse();
+  }
+
   setTimeline(period: Period) {
+    let timeline = [];
+    let month = new Date().getMonth() - 1;
+    let year = new Date().getFullYear();
     switch (period) {
       case Period.MONTHLY:
-        this.timeline = [
-          new Date(2021, 0, 1),
-          new Date(2021, 1, 1),
-          new Date(2021, 2, 1),
-          new Date(2021, 3, 1),
-          new Date(2021, 4, 1),
-          new Date(2021, 5, 1),
-          new Date(2021, 6, 1),
-          new Date(2021, 7, 1),
-          new Date(2021, 8, 1),
-          new Date(2021, 9, 1),
-          new Date(2021, 10, 1),
-          new Date(2021, 11, 1),
-        ];
+        for (let i = 0; i < 12; i++) {
+          if (month < 0) {
+            year = year - 1;
+            month = 11;
+          }
+          timeline.push(new Date(year, month, 1));
+          month = month - 1;
+        }
+        this.timeline = timeline.reverse();
         break;
       case Period.QUARTERLY:
-        this.timeline = [
-          new Date(2019, 2, 1),
-          new Date(2019, 5, 1),
-          new Date(2019, 8, 1),
-          new Date(2019, 11, 1),
-          new Date(2020, 2, 1),
-          new Date(2020, 5, 1),
-          new Date(2020, 8, 1),
-          new Date(2020, 11, 1),
-          new Date(2021, 2, 1),
-          new Date(2021, 5, 1),
-          new Date(2021, 8, 1),
-          new Date(2021, 11, 1),
-        ];
+        // start at last full quarter
+        if (month <= 2) {
+          // Q4
+          month = 11;
+          year = year - 1;
+        } else if (month <= 5) {
+          // Q1
+          month = 2;
+        } else if (month <= 8) {
+          // Q2
+          month = 5;
+        } else {
+          // Q3
+          month = 8;
+        }
+        for (let i = 0; i < 12; i++) {
+          if (month < 0) {
+            year = year - 1;
+            month = 11;
+          }
+          timeline.push(new Date(year, month, 1));
+          month = month - 3;
+        }
+        this.timeline = timeline.reverse();
         break;
       case Period.YEARLY:
-        this.timeline = [
-          new Date(2011, 11, 1),
-          new Date(2012, 11, 1),
-          new Date(2013, 11, 1),
-          new Date(2014, 11, 1),
-          new Date(2015, 11, 1),
-          new Date(2016, 11, 1),
-          new Date(2017, 11, 1),
-          new Date(2018, 11, 1),
-          new Date(2019, 11, 1),
-          new Date(2020, 11, 1),
-          new Date(2021, 11, 1),
-          new Date(2022, 11, 1),
-        ];
+        year = year - 1;
+        for (let i = 0; i < 12; i++) {
+          timeline.push(new Date(year, 0, 1));
+          year = year - 1;
+        }
+        this.timeline = timeline.reverse();
         break;
     }
+
+    this.periodChange.emit(this.timeline);
+  }
+
+  matchDates(stringDate: string, date: Date): boolean {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const stringMonth = stringDate.split(', ')[0];
+    const stringYear = stringDate.split(', ')[1];
+    const dateMonth = months[date.getMonth()];
+    const dateYear = date.getFullYear().toString();
+    console.log(stringMonth);
+    console.log(dateMonth);
+    console.log(stringYear);
+    console.log(dateYear);
+    const x = stringMonth === dateMonth && stringYear === dateYear;
+    return x;
   }
 }

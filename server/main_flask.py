@@ -83,13 +83,16 @@ def transactions_make_local_backup():
 def get_networth():
     args = request.args
     try:
-        year = int(args.get('year', 0))
-        month = int(args.get('month', 0))
+        year = int(args.get('year', -1))
+        month = int(args.get('month', -1))
     except Exception:
         print('Improper input values')
         return 'Input syntax error', 400
-    values = networth_sheet.get_data()
-    return values
+    values = networth_sheet.get_data(month, year)
+    if values:
+        return values, 200
+    else:
+        return 'No records found', 204
 
 
 @app.route('/dashboards/', methods=['GET'])

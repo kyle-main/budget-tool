@@ -21,4 +21,8 @@
   </div>
 </div>
 
-<app-accounts-bar-graph [rawData]="this.netWorthData"> </app-accounts-bar-graph>
+<app-accounts-bar-graph
+  [rawData]="this.netWorthData"
+  (periodChange)="this.getData($event)"
+>
+</app-accounts-bar-graph>

@@ -23,7 +23,6 @@ export class TransactionAccordionComponent implements OnInit {
   ngOnInit(): void {}
 
   deleteTransaction(transaction: Transaction): void {
-    console.log(transaction);
     const index = this.transactions.indexOf(transaction);
     if (index > -1) {
       this.transactions.splice(index, 1);
